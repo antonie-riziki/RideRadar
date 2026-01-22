@@ -1,0 +1,13 @@
+:root{
+  --bg: #f7fbff;
+  --primary: #0b6e99;
+  --accent: #ff9f43;
+  --muted: #657786;
+}
+body{font-family: Inter, Roboto, system-ui, -apple-system, sans-serif; background:var(--bg); color:#0b1720; margin:0}
+.app-header{display:flex; gap:12px; padding:12px; background:white; box-shadow:0 1px 0 rgba(0,0,0,0.04)}
+.app-root main{padding:12px}
+
+/* Mobile-first card styles */
+.card{background:white; border-radius:12px; padding:12px; box-shadow:0 6px 18px rgba(11,23,32,0.06); margin-bottom:12px}
+.large-cta{background:var(--primary); color:white; padding:12px; border-radius:10px; text-align:center}
