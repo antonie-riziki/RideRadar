@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Performance Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#0d141b] dark:text-slate-100 transition-colors duration-300">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navigation Drawer (Hidden by default in actual implementation, shown here as an overlay for design representation) -->
+<div class="fixed inset-0 z-50 bg-[#141414]/40 backdrop-blur-sm hidden" id="sidebar-overlay">
+<div class="flex h-full w-10/12 flex-col gap-4 bg-background-light dark:bg-background-dark p-4 shadow-xl">
+<div class="flex items-center justify-between px-4 pb-2 pt-4">
+<p class="text-[20px] font-bold leading-tight tracking-tight text-primary">Nairobi SACCO Admin</p>
+<button class="material-symbols-outlined text-[#0d141b] dark:text-white">close</button>
+</div>
+<ul class="flex flex-col gap-2">
+<li class="flex h-12 items-center gap-4 rounded-lg px-4 bg-primary/10 text-primary">
+<span class="material-symbols-outlined fill">dashboard</span>
+<p class="text-base font-bold leading-tight truncate">Overview</p>
+</li>
+<li class="flex h-12 items-center gap-4 rounded-lg px-4 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">map</span>
+<p class="text-base font-medium leading-tight truncate">Live Map</p>
+</li>
+<li class="flex h-12 items-center gap-4 rounded-lg px-4 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">analytics</span>
+<p class="text-base font-medium leading-tight truncate">Analytics</p>
+</li>
+<li class="flex h-12 items-center gap-4 rounded-lg px-4 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">psychology</span>
+<p class="text-base font-medium leading-tight truncate">AI Insights</p>
+</li>
+<li class="flex h-12 items-center gap-4 rounded-lg px-4 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">directions_bus</span>
+<p class="text-base font-medium leading-tight truncate">Fleet Management</p>
+</li>
+</ul>
+<div class="mt-auto p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">JD</div>
+<div>
+<p class="text-sm font-bold">John Doe</p>
+<p class="text-xs text-slate-500">Fleet Owner</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Top App Bar -->
+<header class="sticky top-0 z-40 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 pb-2 justify-between border-b border-slate-200 dark:border-slate-800">
+<div class="text-[#0d141b] dark:text-white flex size-10 shrink-0 items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</div>
+<h2 class="text-[#0d141b] dark:text-white text-lg font-bold leading-tight tracking-tight flex-1 px-4">Performance Overview</h2>
+<div class="flex gap-2">
+<button class="flex size-10 items-center justify-center rounded-full bg-transparent text-[#0d141b] dark:text-white hover:bg-slate-200 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-2xl">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto">
+<!-- Welcome/Date Section -->
+<div class="px-4 pt-6 pb-2">
+<h1 class="text-2xl font-bold text-[#0d141b] dark:text-white">Jambo, John!</h1>
+<p class="text-sm text-slate-500 font-medium">Monday, Oct 23rd • Live Updates</p>
+</div>
+<!-- Stats Grid -->
+<section class="grid grid-cols-2 gap-3 p-4">
+<div class="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-xl">commute</span>
+<span class="text-[#078838] text-xs font-bold">+5%</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-wider">Active Vehicles</p>
+<p class="text-[#0d141b] dark:text-white text-xl font-bold">142</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-xl">groups</span>
+<span class="text-[#e73908] text-xs font-bold">-2%</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-wider">Commuters Today</p>
+<p class="text-[#0d141b] dark:text-white text-xl font-bold">8,420</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-xl">payments</span>
+<span class="text-[#078838] text-xs font-bold">+12%</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-wider">Daily Revenue</p>
+<p class="text-[#0d141b] dark:text-white text-xl font-bold">KES 1.2M</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-xl">schedule</span>
+<span class="text-[#e73908] text-xs font-bold">-4%</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-wider">Avg Waiting Time</p>
+<p class="text-[#0d141b] dark:text-white text-xl font-bold">12 mins</p>
+</div>
+</div>
+</section>
+<!-- Chart Section -->
+<section class="p-4">
+<div class="rounded-xl bg-white dark:bg-slate-900 p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="mb-6">
+<div class="flex items-center justify-between mb-1">
+<h3 class="text-[#0d141b] dark:text-white text-base font-bold">Passenger Demand vs Supply</h3>
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Live</span>
+</div>
+<div class="flex items-baseline gap-2">
+<p class="text-[#0d141b] dark:text-white text-3xl font-black">1.2k</p>
+<p class="text-[#078838] text-sm font-bold">Active Demand</p>
+</div>
+<div class="flex gap-4 mt-2">
+<div class="flex items-center gap-1.5">
+<span class="size-2 rounded-full bg-primary"></span>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium">Demand</p>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="size-2 rounded-full bg-[#10B981]"></span>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium">Supply</p>
+</div>
+</div>
+</div>
+<div class="relative h-48 w-full">
+<svg class="h-full w-full" preserveaspectratio="none" viewbox="0 0 400 150">
+<!-- Gradient Area for Demand -->
+<defs>
+<lineargradient id="demandGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#2b8cee" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#2b8cee" stop-opacity="0"></stop>
+</lineargradient>
+<lineargradient id="supplyGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#10B981" stop-opacity="0.1"></stop>
+<stop offset="100%" stop-color="#10B981" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Demand Path -->
+<path d="M0,120 Q50,40 100,80 T200,60 T300,100 T400,20 L400,150 L0,150 Z" fill="url(#demandGrad)"></path>
+<path d="M0,120 Q50,40 100,80 T200,60 T300,100 T400,20" fill="none" stroke="#2b8cee" stroke-linecap="round" stroke-width="3"></path>
+<!-- Supply Path (Lower for contrast) -->
+<path d="M0,130 Q50,110 100,120 T200,90 T300,110 T400,100 L400,150 L0,150 Z" fill="url(#supplyGrad)"></path>
+<path d="M0,130 Q50,110 100,120 T200,90 T300,110 T400,100" fill="none" stroke="#10B981" stroke-dasharray="4 2" stroke-linecap="round" stroke-width="2.5"></path>
+</svg>
+</div>
+<div class="flex justify-between mt-4">
+<p class="text-slate-400 text-[11px] font-bold">6AM</p>
+<p class="text-slate-400 text-[11px] font-bold">10AM</p>
+<p class="text-slate-400 text-[11px] font-bold">2PM</p>
+<p class="text-slate-400 text-[11px] font-bold">6PM</p>
+<p class="text-slate-400 text-[11px] font-bold">10PM</p>
+</div>
+</div>
+</section>
+<!-- Fleet Health Overview Section Header -->
+<div class="px-4 py-2 flex items-center justify-between">
+<h3 class="text-[#0d141b] dark:text-white text-lg font-bold leading-tight">Fleet Health Overview</h3>
+<button class="text-primary text-sm font-bold">View All</button>
+</div>
+<!-- List of Fleet Health (Custom Component) -->
+<div class="px-4 pb-12 flex flex-col gap-3">
+<div class="flex items-center gap-4 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="size-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-[#0d141b] dark:text-white">Optimal Condition</p>
+<p class="text-xs text-slate-500">128 Vehicles</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-[#0d141b] dark:text-white">90%</p>
+<div class="w-16 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full mt-1">
+<div class="h-full bg-green-500 rounded-full w-[90%]"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="size-10 rounded-lg bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center text-yellow-600">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-[#0d141b] dark:text-white">Needs Service</p>
+<p class="text-xs text-slate-500">12 Vehicles</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-[#0d141b] dark:text-white">8%</p>
+<div class="w-16 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full mt-1">
+<div class="h-full bg-yellow-500 rounded-full w-[8%]"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="size-10 rounded-lg bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600">
+<span class="material-symbols-outlined">error</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-[#0d141b] dark:text-white">Critical Issue</p>
+<p class="text-xs text-slate-500">2 Vehicles</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-[#0d141b] dark:text-white">2%</p>
+<div class="w-16 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full mt-1">
+<div class="h-full bg-red-500 rounded-full w-[2%]"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<div class="fixed bottom-6 right-6">
+<button class="size-14 rounded-full bg-primary text-white shadow-xl flex items-center justify-center transition-transform active:scale-90">
+<span class="material-symbols-outlined text-2xl">add</span>
+</button>
+</div>
+<!-- Bottom Tab Bar (Mobile Navigation Pattern) -->
+<nav class="sticky bottom-0 w-full bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-around py-2">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined fill">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+<span class="material-symbols-outlined">map</span>
+<span class="text-[10px] font-medium">Map</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-medium">Stats</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</button>
+</nav>
+</div>
+</body></html>

@@ -1,12 +1,203 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RideRadar Home</title>
-</head>
-<body>
-    <h1>Welcome to RideRadar!</h1>
-    <p>Your ultimate destination for ride-sharing insights.</p>
-</body>
-</html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nairobi Transit System | Smart Commuting &amp; Fleet Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1392ec",
+                        "secondary": "#22c55e",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101a22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#0d161b] dark:text-slate-50 overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 justify-between border-b border-gray-200 dark:border-gray-800">
+<div class="flex items-center gap-2">
+<div class="text-primary flex size-10 shrink-0 items-center justify-center bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined">directions_bus</span>
+</div>
+<h2 class="text-[#0d161b] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">MatatuPay</h2>
+</div>
+<div class="flex items-center gap-4">
+<p class="text-primary text-sm font-bold cursor-pointer">Support</p>
+<button class="bg-primary text-white text-xs font-bold px-4 py-2 rounded-full">Get Started</button>
+</div>
+</header>
+<!-- Hero Section -->
+<main class="w-full">
+<div class="@container">
+<div class="@[480px]:p-4">
+<div class="flex min-h-[520px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-6 text-center" data-alt="Wide aerial view of Nairobi skyline with modern buildings" style='background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuBNiUrG-V2aL6Kch2LR8xm5tUhhZ3R-BsQLsbfYD_39S3JRIeJukBRC3Jai0XMoo-5DLht6gs54ZQT2QHmqIGLx3jvUSlw6bKEr4BBBIZ6E3gj1kTe2GMEa5rU0JgvsWrPewFeTz4CE-TBxjf-FS1Xzcq4UtY_HQnUXI7LDuruUREP_EE4joWdr0ldpMChPzDeV7du0MRxB03JRJFSaLUBpGW_bHpd9b_rxWhZqWW7DvLsjAn13kH82AjCxELSLayyAm3iyCdGm_Dk");'>
+<div class="flex flex-col gap-4 max-w-[800px]">
+<h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-6xl">
+                            Smart Commuting for Nairobi. <span class="text-primary">Intelligent Growth</span> for SACCOs.
+                        </h1>
+<h2 class="text-slate-200 text-base font-normal leading-relaxed @[480px]:text-xl max-w-[600px] mx-auto">
+                            Revolutionizing public transport with seamless digital ticketing for passengers and real-time fleet management for owners.
+                        </h2>
+</div>
+<div class="flex flex-col @[480px]:flex-row gap-4 w-full justify-center mt-4">
+<button class="flex flex-1 max-w-[320px] min-h-[56px] cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-primary text-white text-base font-bold shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined mr-2">person</span>
+<span class="truncate">I am a Commuter</span>
+</button>
+<button class="flex flex-1 max-w-[320px] min-h-[56px] cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-secondary text-white text-base font-bold shadow-lg shadow-secondary/20">
+<span class="material-symbols-outlined mr-2">monitoring</span>
+<span class="truncate">I am a Fleet Owner</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Visual Product Split -->
+<section class="p-4 py-12">
+<div class="text-center mb-10">
+<h2 class="text-[#0d161b] dark:text-white text-[28px] font-black leading-tight tracking-[-0.015em]">The Digital Commute</h2>
+<p class="text-gray-500 dark:text-gray-400 mt-2">Tailored experiences for every user in the ecosystem.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Commuter Side -->
+<div class="flex flex-col gap-4 bg-white dark:bg-slate-900/50 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl shadow-inner border border-gray-100 dark:border-gray-800" data-alt="Modern smartphone app showing a digital bus ticket QR code" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuApgtHNHvRtY8-t_wKZaZWfQsRcXNY-vdh9r8du2jugjRpmIe2LdKme_yWkNriAsG07BAFuX_jS9xagTUOucmBYWmBIbGYN4jZXHMC_UzCizUyt0oSliJop8YBizEFAXUEEgzjtdtzx9XSzKtrkWOrjG1S9Hs_gAi7AjTmYUbtQsES1YMIMJuwSavg_U3HoJ6wBYOvTaEfeaI5-4OIzmNiEb1lq1V1HrhmwVsBm7Wfb28MeVspgGG_2oJTySbrIitPF-ncdzvhzdtw");'>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary">smartphone</span>
+<p class="text-[#0d161b] dark:text-white text-xl font-bold leading-normal">Commuter Mobile App</p>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                            A clean, friendly interface for Nairobi residents to book seats, track buses in real-time, and pay via M-PESA or Card.
+                        </p>
+</div>
+</div>
+<!-- Admin Side -->
+<div class="flex flex-col gap-4 bg-white dark:bg-slate-900/50 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-xl shadow-inner border border-gray-100 dark:border-gray-800" data-alt="Data dashboard on a tablet showing fleet revenue charts" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBA9QsDt3cdorOqjLC9xCdusr_3Iv8nCTAqpFfEhhpRwZkf0YWHy6L_UpWuuHlef-bRa3juatc9Lab8LHy7h9upryGxDexvQ1zrRkQGiTdDjhzsGVp4mpYXwBT_GXrVl9qaOONLFOeoxvxfU7aTZtsw9GJcPt5ojNywZsA8_cQRfQRZ7ixW1LL4dbjj2lVUwuACvZ1LjLmRlxMQoEu5qro_Df3kcNQNtfeby6WNs4lIIXfBBQPiHkvdveKYgDWADhYNSeoqEQDd2GE");'>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-secondary">dashboard</span>
+<p class="text-[#0d161b] dark:text-white text-xl font-bold leading-normal">SACCO Admin Dashboard</p>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                            Professional management tools providing real-time revenue reports, driver performance, and AI-powered route optimization.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Choose Us -->
+<section class="bg-primary/5 dark:bg-primary/10 px-4 py-16">
+<div class="flex flex-col gap-8 max-w-5xl mx-auto">
+<div class="flex flex-col gap-3">
+<h1 class="text-[#0d161b] dark:text-white text-3xl font-black leading-tight @[480px]:text-4xl">
+                        Why Choose Our Platform
+                    </h1>
+<p class="text-gray-600 dark:text-gray-400 text-base max-w-[720px]">
+                        We leverage cutting-edge AI and real-time connectivity to streamline the Nairobi transport ecosystem, making it safer and more profitable.
+                    </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Feature 1 -->
+<div class="flex flex-col gap-4 rounded-2xl border border-primary/20 bg-white dark:bg-background-dark p-6 shadow-sm">
+<div class="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">location_on</span>
+</div>
+<div class="flex flex-col gap-2">
+<h2 class="text-[#0d161b] dark:text-white text-lg font-bold leading-tight">Real-time Tracking</h2>
+<p class="text-gray-500 dark:text-gray-400 text-sm leading-normal">Know exactly where your bus is at any moment with high-precision GPS integration.</p>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="flex flex-col gap-4 rounded-2xl border border-primary/20 bg-white dark:bg-background-dark p-6 shadow-sm">
+<div class="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">confirmation_number</span>
+</div>
+<div class="flex flex-col gap-2">
+<h2 class="text-[#0d161b] dark:text-white text-lg font-bold leading-tight">Queueless Ticketing</h2>
+<p class="text-gray-500 dark:text-gray-400 text-sm leading-normal">Skip the terminal crowds. Book your specific seat and pay instantly via the app.</p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="flex flex-col gap-4 rounded-2xl border border-primary/20 bg-white dark:bg-background-dark p-6 shadow-sm">
+<div class="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">psychology</span>
+</div>
+<div class="flex flex-col gap-2">
+<h2 class="text-[#0d161b] dark:text-white text-lg font-bold leading-tight">AI Fleet Optimization</h2>
+<p class="text-gray-500 dark:text-gray-400 text-sm leading-normal">Maximize load factors and reduce idle time with smart demand-based routing algorithms.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA / App Store Section -->
+<section class="p-6 py-20 text-center flex flex-col items-center">
+<h3 class="text-2xl font-black mb-8">Ready to transform your commute?</h3>
+<div class="flex flex-wrap justify-center gap-4">
+<button class="flex items-center bg-black text-white px-6 py-3 rounded-xl gap-3">
+<span class="material-symbols-outlined text-3xl">phone_iphone</span>
+<div class="text-left">
+<p class="text-[10px] uppercase font-bold">Download on the</p>
+<p class="text-xl font-bold -mt-1">App Store</p>
+</div>
+</button>
+<button class="flex items-center bg-black text-white px-6 py-3 rounded-xl gap-3">
+<span class="material-symbols-outlined text-3xl">play_arrow</span>
+<div class="text-left">
+<p class="text-[10px] uppercase font-bold">Get it on</p>
+<p class="text-xl font-bold -mt-1">Google Play</p>
+</div>
+</button>
+</div>
+<div class="mt-12 pt-8 border-t border-gray-100 dark:border-gray-800 w-full max-w-md">
+<p class="text-gray-500 text-sm">Are you a fleet owner? <a class="text-primary font-bold" href="#">Request a demo</a></p>
+</div>
+</section>
+</main>
+<footer class="bg-gray-100 dark:bg-slate-900 p-8 text-center">
+<div class="text-primary flex size-10 shrink-0 items-center justify-center bg-primary/10 rounded-lg mx-auto mb-4">
+<span class="material-symbols-outlined">directions_bus</span>
+</div>
+<p class="text-gray-500 text-xs">© 2024 MatatuPay Nairobi. All rights reserved.</p>
+<div class="flex justify-center gap-4 mt-4 text-gray-400 text-xs font-medium">
+<p>Privacy Policy</p>
+<p>Terms of Service</p>
+<p>Contact</p>
+</div>
+</footer>
+</body></html>

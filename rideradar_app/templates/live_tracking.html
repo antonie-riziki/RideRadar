@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Vehicle Tracking - Nairobi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#2b8cee",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+            },
+            fontFamily: {
+              "display": ["Plus Jakarta Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .map-gradient {
+            background: linear-gradient(180deg, rgba(246, 247, 248, 0) 0%, rgba(246, 247, 248, 1) 100%);
+        }
+        .matatu-marker {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#0d141b] dark:text-white antialiased overflow-hidden h-screen">
+<!-- Main Map Container -->
+<div class="relative h-full w-full">
+<!-- Simplified Vector Map (Background) -->
+<div class="absolute inset-0 z-0 bg-cover bg-center opacity-90 grayscale-[20%]" data-alt="Simplified vector map of Nairobi city streets" data-location="Nairobi, Kenya" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCoIZtQYavANUaFytYJqlTjnfOvyPXedBrCUWj8l5llZ7XxqWDNtkHHeYl83ZPgwXqX68IpuYt0x0zUe8eQZs1A03h2x8JqAMZ4WDCuazDbXgHQaDueSalt0L9PhyIY6pit8puDWSP6VvxqgxyWJIuND-IXsoMFMjPOc04tmGt-QZmVeCOg7yZihNeIa-rVKyyjYmaVsr8noWRE0GGDAJ7slRf_qjOcj5fob6Bzpfp0QSxtYDq5jBRHNHMEUqiNTIuTkzzUOXub5SY");'>
+<!-- Vehicle Markers Overlay -->
+<div class="relative w-full h-full">
+<!-- Selected Matatu Marker -->
+<div class="absolute top-[45%] left-[55%] flex flex-col items-center">
+<div class="bg-primary text-white p-2 rounded-full matatu-marker relative flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">directions_bus</span>
+<div class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 border-2 border-white rounded-full"></div>
+<!-- Direction Arrow -->
+<div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-primary"></div>
+</div>
+<div class="mt-1 px-2 py-0.5 bg-white/90 dark:bg-background-dark/90 rounded-full text-[10px] font-bold shadow-sm">KCA 123X</div>
+</div>
+<!-- Other Matatu Marker -->
+<div class="absolute top-[30%] left-[30%] flex flex-col items-center opacity-60">
+<div class="bg-emerald-500 text-white p-2 rounded-full matatu-marker relative flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">directions_bus</span>
+<div class="absolute -top-1 -right-1 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[8px] border-b-emerald-500 rotate-45"></div>
+</div>
+<div class="mt-1 px-2 py-0.5 bg-white/90 dark:bg-background-dark/90 rounded-full text-[10px] font-bold shadow-sm">KCB 445Y</div>
+</div>
+<!-- Route Polyline (Simulated) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none">
+<path class="opacity-40" d="M 0 600 Q 200 550, 400 500 T 800 450" fill="transparent" stroke="#2b8cee" stroke-dasharray="10 15" stroke-linecap="round" stroke-width="6"></path>
+</svg>
+</div>
+</div>
+<!-- Top App Bar & Search Overlay -->
+<div class="absolute top-0 left-0 w-full z-10 p-4">
+<div class="flex items-center gap-4 mb-4">
+<button class="flex size-12 items-center justify-center rounded-full bg-white dark:bg-background-dark shadow-lg">
+<span class="material-symbols-outlined text-[#0d141b] dark:text-white">arrow_back_ios_new</span>
+</button>
+<div class="flex-1 bg-white dark:bg-background-dark rounded-full shadow-lg flex items-center px-4 h-12">
+<span class="material-symbols-outlined text-[#4c739a] mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-[#4c739a]" placeholder="Search route or destination" type="text"/>
+</div>
+</div>
+</div>
+<!-- Floating Action Buttons -->
+<div class="absolute right-4 bottom-80 z-10 flex flex-col gap-3">
+<div class="flex flex-col rounded-full bg-white dark:bg-background-dark shadow-lg overflow-hidden">
+<button class="size-12 flex items-center justify-center border-b border-slate-100 dark:border-slate-800">
+<span class="material-symbols-outlined text-[#0d141b] dark:text-white">add</span>
+</button>
+<button class="size-12 flex items-center justify-center">
+<span class="material-symbols-outlined text-[#0d141b] dark:text-white">remove</span>
+</button>
+</div>
+<button class="size-12 flex items-center justify-center rounded-full bg-white dark:bg-background-dark shadow-lg">
+<span class="material-symbols-outlined text-primary">my_location</span>
+</button>
+</div>
+<!-- Bottom Sheet Layer -->
+<div class="absolute bottom-0 left-0 w-full z-20">
+<!-- Semi-transparent overlay for map focus -->
+<div class="absolute bottom-full left-0 w-full h-32 pointer-events-none map-gradient"></div>
+<div class="bg-white dark:bg-background-dark rounded-t-lg shadow-[0_-8px_30px_rgb(0,0,0,0.12)] pb-10">
+<!-- Handle Bar -->
+<div class="flex w-full items-center justify-center py-3">
+<div class="h-1.5 w-12 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+</div>
+<!-- Vehicle Header -->
+<div class="px-6 flex justify-between items-start">
+<div>
+<h2 class="text-2xl font-bold text-[#0d141b] dark:text-white leading-tight">KCA 123X</h2>
+<p class="text-[#4c739a] dark:text-slate-400 font-medium">Route 102 - Dagoretti</p>
+</div>
+<div class="bg-primary/10 dark:bg-primary/20 p-2 rounded-xl">
+<span class="material-symbols-outlined text-primary">verified</span>
+</div>
+</div>
+<!-- Vehicle Status Cards -->
+<div class="grid grid-cols-3 gap-3 p-6">
+<div class="bg-background-light dark:bg-slate-800/50 p-3 rounded-2xl text-center">
+<p class="text-[10px] uppercase tracking-wider text-[#4c739a] font-bold mb-1">ETA</p>
+<p class="text-lg font-bold text-[#0d141b] dark:text-white">4 <span class="text-xs font-normal">mins</span></p>
+</div>
+<div class="bg-background-light dark:bg-slate-800/50 p-3 rounded-2xl text-center">
+<p class="text-[10px] uppercase tracking-wider text-[#4c739a] font-bold mb-1">Occupancy</p>
+<div class="flex flex-col items-center">
+<span class="text-amber-500 material-symbols-outlined text-lg">person_filled</span>
+<p class="text-xs font-bold text-amber-500">Medium</p>
+</div>
+</div>
+<div class="bg-background-light dark:bg-slate-800/50 p-3 rounded-2xl text-center">
+<p class="text-[10px] uppercase tracking-wider text-[#4c739a] font-bold mb-1">Fare</p>
+<p class="text-lg font-bold text-primary">50 <span class="text-xs font-normal">KES</span></p>
+</div>
+</div>
+<!-- Weather Warning Card -->
+<div class="mx-6 mb-6 p-4 bg-blue-50 dark:bg-primary/10 rounded-2xl border border-primary/20 flex items-center gap-3">
+<div class="bg-white dark:bg-background-dark p-2 rounded-full shadow-sm text-primary">
+<span class="material-symbols-outlined text-[20px]">rainy</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-semibold text-[#0d141b] dark:text-white">Weather Notice</p>
+<p class="text-xs text-[#4c739a] dark:text-slate-400 leading-tight">Rain may cause +5 min delay on Ngong Rd.</p>
+</div>
+</div>
+<!-- Action Button -->
+<div class="px-6">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-5 rounded-full shadow-lg shadow-primary/30 flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined">payments</span>
+                        Buy Ticket
+                    </button>
+<p class="text-center text-[10px] text-[#4c739a] mt-4 font-medium uppercase tracking-widest">Powered by MatatuPay Nairobi</p>
+</div>
+</div>
+</div>
+</div>
+</body></html>
