@@ -10,6 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
 
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+
   <!-- Tailwind Configuration -->
   <script id="tailwind-config">
     tailwind.config = {
@@ -79,6 +84,23 @@
         height: auto;
         /* display: block; */
         width: 100%;
+    }
+
+
+    #map {
+      width: 60vw;
+      height: 60vh;
+      margin-top: 44px;
+      border-radius: 20px;
+    }
+
+    .route-label {
+      background: white;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      border: 1px solid #ccc;
     }
 
   </style>
@@ -401,10 +423,66 @@
           </section>
 
         </div>
-
+ 
       </div>
 
+      <div id="map"></div>
+
+      <!-- Leaflet JS -->
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+      <script>
+        // 1️⃣ Initialize map centered on Nairobi CBD
+        const map = L.map("map").setView([-1.286389, 36.817223], 13);
+
+        // 2️⃣ Load OpenStreetMap tiles
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "&copy; OpenStreetMap contributors"
+        }).addTo(map);
+
+        // 3️⃣ Sample Bus Stops (CBD → Westlands)
+        const busStops = [
+          { name: "Kencom Stage", coords: [-1.2868, 36.8219] },
+          { name: "Railways Stage", coords: [-1.2921, 36.8223] },
+          { name: "Museum Hill", coords: [-1.2785, 36.8124] },
+          { name: "Westlands Stage", coords: [-1.2673, 36.8047] }
+        ];
+
+        busStops.forEach(stop => {
+          L.marker(stop.coords)
+            .addTo(map)
+            .bindPopup(`<b>${stop.name}</b><br>Bus Stop`);
+        });
+
+        // 4️⃣ Sample Route (Polyline)
+        const route46 = [
+          [-1.2868, 36.8219], // Kencom
+          [-1.2921, 36.8223], // Railways
+          [-1.2785, 36.8124], // Museum Hill
+          [-1.2673, 36.8047]  // Westlands
+        ];
+
+        const routeLine = L.polyline(route46, {
+          color: "blue",
+          weight: 5
+        }).addTo(map);
+
+        // 5️⃣ Route Label
+        L.popup({
+          closeButton: false,
+          autoClose: false,
+          className: "route-label"
+        })
+          .setLatLng([-1.2785, 36.8124])
+          .setContent("Route 46 – CBD → Westlands")
+          .openOn(map);
+      </script>
+
     </div>
+
+
+    
+
   </main>
 
   {% include 'chatbot.html' %}
