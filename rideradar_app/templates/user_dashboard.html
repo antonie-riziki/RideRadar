@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Commuter Home Screen</title>
+<title>Commuter Home with Sidebar</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
@@ -32,12 +30,19 @@
             },
         }
     </script>
-<style>
+<style type="text/tailwindcss">
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100dvh;
         }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav {
+            @apply bg-primary/10 text-primary;
+        }
+        .sidebar-item {
+            @apply flex flex-col items-center justify-center gap-1 w-full py-4 transition-colors duration-200;
         }
     </style>
 <style>
@@ -46,44 +51,62 @@
     }
   </style>
   </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300">
-<!-- Top Navigation Bar -->
-<nav class="flex items-center justify-between px-6 py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
-<div class="flex items-center gap-3">
-<div class="size-10 rounded-full bg-cover bg-center border-2 border-white dark:border-slate-800 shadow-sm" data-alt="User profile picture showing a friendly person" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_XoeXP2IpHMDKSOB9AQMXcC7Bsq3lXbMMIumXbpeBW7Nb96PXGy8yX1jGiemFiggvFVRZ8Jg7ph6ZNZ5LTngyxGoIJ9zVf9NRYoj4agOc0J40ErSND_OUfpvankd8oU9TLi-Z-rIGIV2cj7By393niTVrfIXTGg_ZyDXmHx3Z5Jwr8Sc_gNMrJK8C024eEVpkMxmjffDMpyqkTGsgFik0ubL69vQJpvOrobEwIIMTzilwqAKHLoTyvyPD3ZB_fqLv3AuZMUby8G4');"></div>
-<h2 class="text-lg font-bold tracking-tight">Nairobi Commuter</h2>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 flex overflow-hidden">
+<aside class="w-20 md:w-24 h-screen bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col items-center py-6 sticky top-0 z-50">
+<div class="mb-8">
+<div class="size-12 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1">directions_bus</span>
 </div>
-<button class="size-10 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-sm text-slate-600 dark:text-slate-300">
+</div>
+<nav class="flex-1 w-full flex flex-col items-center gap-2">
+<a class="sidebar-item active-nav" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</a>
+<a class="sidebar-item text-slate-400 hover:text-primary" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="text-[10px] font-bold">Map</span>
+</a>
+<a class="sidebar-item text-slate-400 hover:text-primary" href="#">
+<span class="material-symbols-outlined">route</span>
+<span class="text-[10px] font-bold">Trips</span>
+</a>
+<a class="sidebar-item text-slate-400 hover:text-primary" href="#">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span class="text-[10px] font-bold">Tickets</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col items-center gap-6">
+<button class="text-slate-400 hover:text-primary">
 <span class="material-symbols-outlined">notifications</span>
 </button>
-</nav>
-<!-- Main Content Container -->
-<main class="flex-1 px-6 pb-32">
-<!-- Headline Greeting -->
-<header class="py-8">
-<h1 class="text-[32px] font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white">
-                Good morning 👋 <br/>
+<a class="sidebar-item text-slate-400 hover:text-primary" href="#">
+<div class="size-10 rounded-full bg-cover bg-center border-2 border-white dark:border-slate-800" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_XoeXP2IpHMDKSOB9AQMXcC7Bsq3lXbMMIumXbpeBW7Nb96PXGy8yX1jGiemFiggvFVRZ8Jg7ph6ZNZ5LTngyxGoIJ9zVf9NRYoj4agOc0J40ErSND_OUfpvankd8oU9TLi-Z-rIGIV2cj7By393niTVrfIXTGg_ZyDXmHx3Z5Jwr8Sc_gNMrJK8C024eEVpkMxmjffDMpyqkTGsgFik0ubL69vQJpvOrobEwIIMTzilwqAKHLoTyvyPD3ZB_fqLv3AuZMUby8G4');"></div>
+<span class="text-[10px] font-bold mt-1">Account</span>
+</a>
+</div>
+</aside>
+<main class="flex-1 h-screen overflow-y-auto relative flex flex-col">
+<div class="px-6 py-8 md:px-10 max-w-2xl mx-auto w-full pb-48">
+<header class="mb-10">
+<h1 class="text-3xl md:text-4xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white">
+                    Good morning 👋 <br/>
 <span class="text-primary">Ready to head to Westlands?</span>
 </h1>
 </header>
-<!-- Search Bar Area -->
-<div class="mb-8">
-<label class="relative flex items-center group">
+<div class="mb-10">
+<div class="relative flex items-center group">
 <div class="absolute left-4 text-slate-400 group-focus-within:text-primary transition-colors">
 <span class="material-symbols-outlined">search</span>
 </div>
-<input class="w-full h-16 pl-12 pr-4 bg-white dark:bg-slate-800 border-none rounded-xl shadow-lg shadow-slate-200/50 dark:shadow-none text-lg font-medium placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 transition-all outline-none" placeholder="Where to?" type="text"/>
-</label>
+<input class="w-full h-16 pl-12 pr-4 bg-white dark:bg-slate-800 border-none rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-none text-lg font-medium placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 transition-all outline-none" placeholder="Where to?" type="text"/>
 </div>
-<!-- Quick Actions Grid -->
-<section class="mb-8">
-<div class="flex items-center justify-between mb-4">
-<h3 class="text-lg font-bold">Quick Actions</h3>
 </div>
+<section class="mb-10">
+<h3 class="text-lg font-bold mb-4 px-1">Quick Actions</h3>
 <div class="grid grid-cols-1 gap-4">
-<!-- Nearest Stop -->
-<button class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 active:scale-95 transition-transform text-left">
-<div class="size-12 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+<button class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 active:scale-[0.98] transition-all text-left group">
+<div class="size-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center transition-colors group-hover:bg-primary group-hover:text-white">
 <span class="material-symbols-outlined">location_on</span>
 </div>
 <div>
@@ -91,9 +114,8 @@
 <p class="text-sm text-slate-500">2 mins walk from here</p>
 </div>
 </button>
-<!-- My Usual Route -->
-<button class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 active:scale-95 transition-transform text-left">
-<div class="size-12 rounded-full bg-accent-green/10 text-accent-green flex items-center justify-center">
+<button class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 active:scale-[0.98] transition-all text-left group">
+<div class="size-14 rounded-xl bg-accent-green/10 text-accent-green flex items-center justify-center transition-colors group-hover:bg-accent-green group-hover:text-white">
 <span class="material-symbols-outlined">history</span>
 </div>
 <div>
@@ -101,9 +123,8 @@
 <p class="text-sm text-slate-500">Route 14: CBD - Ngong</p>
 </div>
 </button>
-<!-- Track a Vehicle -->
-<button class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 active:scale-95 transition-transform text-left">
-<div class="size-12 rounded-full bg-orange-500/10 text-orange-500 flex items-center justify-center">
+<button class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 active:scale-[0.98] transition-all text-left group">
+<div class="size-14 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center transition-colors group-hover:bg-orange-500 group-hover:text-white">
 <span class="material-symbols-outlined">directions_bus</span>
 </div>
 <div>
@@ -113,54 +134,36 @@
 </button>
 </div>
 </section>
-<!-- Map Snippet (Visual Decoration) -->
-<section class="mb-8">
-<div class="relative w-full h-40 rounded-xl overflow-hidden shadow-sm">
-<div class="absolute inset-0 bg-slate-200 animate-pulse" data-alt="Map of Nairobi city showing transit routes" data-location="Nairobi" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCoIZtQYavANUaFytYJqlTjnfOvyPXedBrCUWj8l5llZ7XxqWDNtkHHeYl83ZPgwXqX68IpuYt0x0zUe8eQZs1A03h2x8JqAMZ4WDCuazDbXgHQaDueSalt0L9PhyIY6pit8puDWSP6VvxqgxyWJIuND-IXsoMFMjPOc04tmGt-QZmVeCOg7yZihNeIa-rVKyyjYmaVsr8noWRE0GGDAJ7slRf_qjOcj5fob6Bzpfp0QSxtYDq5jBRHNHMEUqiNTIuTkzzUOXub5SY'); background-size: cover; background-position: center;">
+<section class="mb-10">
+<div class="relative w-full h-44 rounded-2xl overflow-hidden shadow-md group cursor-pointer">
+<div class="absolute inset-0 bg-slate-200 transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCoIZtQYavANUaFytYJqlTjnfOvyPXedBrCUWj8l5llZ7XxqWDNtkHHeYl83ZPgwXqX68IpuYt0x0zUe8eQZs1A03h2x8JqAMZ4WDCuazDbXgHQaDueSalt0L9PhyIY6pit8puDWSP6VvxqgxyWJIuND-IXsoMFMjPOc04tmGt-QZmVeCOg7yZihNeIa-rVKyyjYmaVsr8noWRE0GGDAJ7slRf_qjOcj5fob6Bzpfp0QSxtYDq5jBRHNHMEUqiNTIuTkzzUOXub5SY'); background-size: cover; background-position: center;">
 </div>
-<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-<div class="absolute bottom-4 left-4 flex items-center gap-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">
-<span class="size-2 rounded-full bg-accent-green"></span>
-                    Live Traffic Updates
-                </div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+<div class="absolute bottom-4 left-4 flex items-center gap-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold shadow-lg">
+<span class="size-2 rounded-full bg-accent-green animate-pulse"></span>
+                        Live Traffic Updates
+                    </div>
 </div>
 </section>
-</main>
-<!-- Live Status Banner & Bottom Nav -->
-<div class="fixed bottom-0 left-0 right-0 z-50 px-4 pb-4">
-<!-- Live Status Card -->
-<div class="bg-primary text-white rounded-xl shadow-2xl p-4 mb-4 flex items-center justify-between border border-white/20">
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-6 pointer-events-none">
+<div class="max-w-2xl mx-auto w-full pointer-events-auto">
+<div class="bg-primary text-white rounded-2xl shadow-2xl p-4 md:p-6 flex items-center justify-between border border-white/20 backdrop-blur-lg">
 <div class="flex items-center gap-4">
-<div class="size-14 bg-white/20 rounded-lg flex items-center justify-center">
-<span class="material-symbols-outlined text-4xl">airport_shuttle</span>
+<div class="size-12 md:size-14 bg-white/20 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl md:text-4xl">airport_shuttle</span>
 </div>
 <div>
-<h4 class="font-bold text-lg leading-none">Arriving in 6 mins</h4>
+<h4 class="font-bold text-lg md:text-xl leading-none">Arriving in 6 mins</h4>
 <p class="text-white/80 text-sm mt-1">Route 23 • Matatu KDJ 123G</p>
 </div>
 </div>
-<button class="bg-white text-primary px-4 py-2 rounded-full font-bold text-sm shadow-sm active:scale-90 transition-transform">
-                View
-            </button>
-</div>
-<!-- Tab Bar -->
-<div class="bg-white dark:bg-slate-900 rounded-full shadow-2xl flex items-center justify-around p-2 border border-slate-100 dark:border-slate-800">
-<button class="flex flex-col items-center justify-center p-2 text-primary">
-<span class="material-symbols-outlined">home</span>
-<span class="text-[10px] font-bold mt-0.5">Home</span>
-</button>
-<button class="flex flex-col items-center justify-center p-2 text-slate-400">
-<span class="material-symbols-outlined">confirmation_number</span>
-<span class="text-[10px] font-bold mt-0.5">Tickets</span>
-</button>
-<button class="flex flex-col items-center justify-center p-2 text-slate-400">
-<span class="material-symbols-outlined">favorite</span>
-<span class="text-[10px] font-bold mt-0.5">Saved</span>
-</button>
-<button class="flex flex-col items-center justify-center p-2 text-slate-400">
-<span class="material-symbols-outlined">person</span>
-<span class="text-[10px] font-bold mt-0.5">Account</span>
-</button>
+<button class="bg-white text-primary px-6 py-2.5 rounded-full font-bold text-sm shadow-lg active:scale-95 transition-transform">
+                        Track
+                    </button>
 </div>
 </div>
+</div>
+</main>
+
 </body></html>

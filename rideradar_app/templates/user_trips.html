@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>My Trip Countdown</title>
+<title>Trip Countdown with Sidebar</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
@@ -16,31 +14,35 @@
                     colors: {
                         "primary": "#2b8cee",
                         "background-light": "#f6f7f8",
-                        "background-dark": "#101922",
+                        "background-dark": "#0f172a",
+                        "sidebar-light": "#ffffff",
+                        "sidebar-dark": "#1e293b"
                     },
                     fontFamily: {
                         "display": ["Plus Jakarta Sans", "sans-serif"]
                     },
                     borderRadius: {
-                        "DEFAULT": "1rem",
-                        "lg": "2rem",
-                        "xl": "3rem",
+                        "DEFAULT": "0.75rem",
+                        "lg": "1.5rem",
+                        "xl": "2.5rem",
                         "full": "9999px"
                     },
                 },
             },
         }
     </script>
-<style>
-        body {
-            font-family: "Plus Jakarta Sans", sans-serif;
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply font-display antialiased;
+            }
         }
         .circular-progress {
-            background: radial-gradient(closest-side, white 79%, transparent 80% 100%),
+            background: radial-gradient(closest-side, white 82%, transparent 83% 100%),
                         conic-gradient(#2b8cee 75%, #e7edf3 0);
         }
         .dark .circular-progress {
-            background: radial-gradient(closest-side, #101922 79%, transparent 80% 100%),
+            background: radial-gradient(closest-side, #0f172a 82%, transparent 83% 100%),
                         conic-gradient(#2b8cee 75%, #1e293b 0);
         }
     </style>
@@ -50,89 +52,99 @@
     }
   </style>
   </head>
-<body class="bg-background-light dark:bg-background-dark text-[#0d141b] dark:text-slate-100 min-h-screen">
-<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden max-w-[430px] mx-auto shadow-2xl bg-white dark:bg-background-dark">
-<!-- TopAppBar -->
-<div class="flex items-center p-4 pb-2 justify-between">
-<button class="flex size-12 shrink-0 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-<span class="material-symbols-outlined text-2xl">arrow_back_ios_new</span>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen w-full max-w-[430px] mx-auto shadow-2xl bg-white dark:bg-background-dark overflow-hidden">
+<aside class="w-16 sm:w-20 flex flex-col items-center py-8 border-r border-slate-200 dark:border-slate-800 bg-sidebar-light dark:bg-sidebar-dark z-20">
+<div class="mb-10 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">directions_bus</span>
+</div>
+<nav class="flex flex-col gap-8 flex-1">
+<button class="p-2 rounded-xl text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined">home</span>
 </button>
-<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">My Trip</h2>
-</div>
-<div class="flex-1 px-6 flex flex-col items-center justify-center">
-<!-- Hero Countdown Section -->
-<div class="relative flex flex-col items-center justify-center py-8">
-<!-- Circular Timer Visualization -->
-<div class="circular-progress w-64 h-64 rounded-full flex items-center justify-center shadow-sm">
+<button class="p-2 rounded-xl bg-primary/10 text-primary">
+<span class="material-symbols-outlined fill-[1]">confirmation_number</span>
+</button>
+<button class="p-2 rounded-xl text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined">map</span>
+</button>
+<button class="p-2 rounded-xl text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</nav>
+<button class="mt-auto p-2 rounded-xl text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-y-auto relative">
+<header class="sticky top-0 z-10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-4 flex items-center">
+<h1 class="text-xl font-extrabold tracking-tight">My Trip</h1>
+</header>
+<div class="px-5 pb-10 flex flex-col gap-6">
+<section class="flex flex-col items-center pt-4">
+<div class="circular-progress w-56 h-56 rounded-full flex items-center justify-center shadow-lg shadow-primary/10 border-4 border-white dark:border-slate-900">
 <div class="flex flex-col items-center">
-<span class="text-5xl font-extrabold tracking-tighter">04</span>
-<span class="text-sm font-semibold opacity-60 uppercase tracking-widest">Minutes</span>
+<span class="text-6xl font-black text-slate-900 dark:text-white leading-none">4</span>
+<span class="text-[10px] font-bold opacity-50 uppercase tracking-[0.2em] mt-1">mins away</span>
 </div>
 </div>
+</section>
+<div class="text-center">
+<h2 class="text-xl font-bold">Arriving Soon</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Route 24 • KCB 442X</p>
 </div>
-<!-- BodyText Status -->
-<div class="w-full text-center mb-8">
-<p class="text-xl font-bold mb-1">Vehicle is approaching</p>
-<div class="flex items-center justify-center gap-2 text-primary">
-<span class="material-symbols-outlined text-sm">directions_bus</span>
-<p class="text-sm font-medium">Route 24 • KCB 442X</p>
+<section class="w-full">
+<div class="bg-slate-50 dark:bg-slate-900/60 rounded-2xl p-4 border border-slate-100 dark:border-slate-800">
+<div class="flex justify-between items-end mb-3">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Distance</span>
+<span class="text-lg font-bold">800m</span>
 </div>
-</div>
-<!-- Progress Bar Section -->
-<div class="w-full mb-10">
-<div class="flex flex-col gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800">
-<div class="flex gap-6 justify-between">
-<p class="text-sm font-medium opacity-70">Distance to pickup</p>
-<p class="text-sm font-bold">800m</p>
-</div>
-<div class="relative h-2 rounded-full bg-[#cfdbe7] dark:bg-slate-700 overflow-hidden">
+<div class="relative h-2.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
 <div class="absolute h-full rounded-full bg-primary" style="width: 75%;"></div>
 </div>
-<div class="flex justify-between text-[10px] font-bold uppercase tracking-wider opacity-40">
-<span>Depot</span>
-<span>Pick up</span>
+<div class="flex justify-between mt-2">
+<span class="text-[10px] font-bold text-slate-400 uppercase">Ngong Rd</span>
+<span class="text-[10px] font-bold text-primary uppercase">Current Stop</span>
 </div>
 </div>
+</section>
+<section>
+<div class="flex items-center justify-between p-4 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
+<div class="flex flex-col">
+<span class="text-sm font-bold">Smart Alert</span>
+<span class="text-[12px] text-slate-500">Notify me at 2 mins</span>
 </div>
-<!-- Action Panel: Notification Toggle -->
-<div class="w-full mb-4">
-<div class="flex flex-1 items-center justify-between gap-4 rounded-2xl border border-[#cfdbe7] dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
-<div class="flex flex-col gap-1">
-<p class="text-base font-bold leading-tight">Arrival Alert</p>
-<p class="text-sm opacity-60 leading-normal">Notify me when it’s 2 mins away</p>
-</div>
-<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#e7edf3] dark:bg-slate-800 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all">
-<div class="h-full w-[27px] rounded-full bg-white shadow-md"></div>
-<input checked="" class="invisible absolute" type="checkbox"/>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
 </label>
 </div>
-</div>
-<!-- Secondary Action: Reschedule -->
-<div class="w-full mb-8">
-<button class="w-full py-4 px-6 rounded-2xl border-2 border-primary/20 bg-primary/5 text-primary font-bold text-base hover:bg-primary/10 transition-colors flex items-center justify-center gap-2">
+</section>
+<section>
+<button class="w-full py-4 px-4 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-3">
 <span class="material-symbols-outlined text-xl">schedule</span>
-                    Arrive later – suggest next best option
-                </button>
-</div>
-</div>
-<!-- Mini Live Map Indicator (Static Preview) -->
-<div class="px-6 pb-8">
-<div class="relative h-32 w-full rounded-2xl overflow-hidden bg-slate-200 dark:bg-slate-800 border border-slate-100 dark:border-slate-800">
-<img class="w-full h-full object-cover opacity-50 dark:opacity-30 grayscale" data-alt="Simplified city map showing vehicle route" data-location="Nairobi" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6VeCOiWVjzrrecMYMCb8A8JHd5fTQVRlB5k5K_Wuw0vHwmvsw36PSdyojee5yrHRKr4SIvYBNa2Rz9rgNIFIyJ6lRtkrcE7h9IKFQHZjy2P9STZuVBBym3a-Oeqlkbycza_uvRcVb4a_HbRE-smWdXyVRRT4ki0PnVc0zfekFBUrfxT0CQpvCW9bb5DgLEoMhrQdIjn9Vx9uNiQyhhkZY9zITx2qN7V7t_ghttJFJ-ps-eaZ80h7WNhh10a0sYyxufkduXAm14q4"/>
+                        Suggest next best option
+                    </button>
+</section>
+<section class="mt-2">
+<div class="relative h-36 w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-inner">
+<img alt="Tracking map" class="w-full h-full object-cover opacity-40 dark:opacity-20 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6VeCOiWVjzrrecMYMCb8A8JHd5fTQVRlB5k5K_Wuw0vHwmvsw36PSdyojee5yrHRKr4SIvYBNa2Rz9rgNIFIyJ6lRtkrcE7h9IKFQHZjy2P9STZuVBBym3a-Oeqlkbycza_uvRcVb4a_HbRE-smWdXyVRRT4ki0PnVc0zfekFBUrfxT0CQpvCW9bb5DgLEoMhrQdIjn9Vx9uNiQyhhkZY9zITx2qN7V7t_ghttJFJ-ps-eaZ80h7WNhh10a0sYyxufkduXAm14q4"/>
 <div class="absolute inset-0 flex items-center justify-center">
 <div class="relative">
-<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white shadow-lg z-10 relative">
-<span class="material-symbols-outlined text-lg">directions_bus</span>
+<div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white shadow-xl z-10 relative border-2 border-white dark:border-slate-900">
+<span class="material-symbols-outlined text-xl">directions_bus</span>
 </div>
-<div class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></div>
-</div>
-</div>
-<div class="absolute bottom-2 left-1/2 -translate-x-1/2 bg-white/90 dark:bg-slate-900/90 px-3 py-1 rounded-full shadow-sm">
-<p class="text-[10px] font-bold">LIVE TRACKING</p>
+<div class="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-slate-900 animate-pulse"></div>
 </div>
 </div>
+<div class="absolute bottom-3 left-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+<p class="text-[9px] font-black tracking-widest text-primary">LIVE TRACKING</p>
 </div>
-<!-- iOS Home Indicator Spacing -->
-<div class="h-8 bg-transparent"></div>
 </div>
+</section>
+</div>
+<div class="h-8 shrink-0"></div>
+</main>
+</div>
+
 </body></html>

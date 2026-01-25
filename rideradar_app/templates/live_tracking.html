@@ -1,38 +1,44 @@
 <!DOCTYPE html>
-
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Live Vehicle Tracking - Nairobi</title>
+<title>Live Tracking with Sidebar - Nairobi</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "primary": "#2b8cee",
-              "background-light": "#f6f7f8",
-              "background-dark": "#101922",
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
             },
-            fontFamily: {
-              "display": ["Plus Jakarta Sans", "sans-serif"]
-            },
-            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
-          },
-        },
-      }
+        }
     </script>
-<style>
+<style type="text/tailwindcss">
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .map-gradient {
             background: linear-gradient(180deg, rgba(246, 247, 248, 0) 0%, rgba(246, 247, 248, 1) 100%);
         }
         .matatu-marker {
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .sidebar-item-active {
+            @apply bg-primary/10 text-primary;
         }
     </style>
 <style>
@@ -41,119 +47,147 @@
     }
   </style>
   </head>
-<body class="bg-background-light dark:bg-background-dark font-display text-[#0d141b] dark:text-white antialiased overflow-hidden h-screen">
-<!-- Main Map Container -->
-<div class="relative h-full w-full">
-<!-- Simplified Vector Map (Background) -->
-<div class="absolute inset-0 z-0 bg-cover bg-center opacity-90 grayscale-[20%]" data-alt="Simplified vector map of Nairobi city streets" data-location="Nairobi, Kenya" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCoIZtQYavANUaFytYJqlTjnfOvyPXedBrCUWj8l5llZ7XxqWDNtkHHeYl83ZPgwXqX68IpuYt0x0zUe8eQZs1A03h2x8JqAMZ4WDCuazDbXgHQaDueSalt0L9PhyIY6pit8puDWSP6VvxqgxyWJIuND-IXsoMFMjPOc04tmGt-QZmVeCOg7yZihNeIa-rVKyyjYmaVsr8noWRE0GGDAJ7slRf_qjOcj5fob6Bzpfp0QSxtYDq5jBRHNHMEUqiNTIuTkzzUOXub5SY");'>
-<!-- Vehicle Markers Overlay -->
+<body class="bg-background-light dark:bg-background-dark font-display text-[#0d141b] dark:text-white antialiased overflow-hidden h-screen flex">
+<aside class="w-20 md:w-24 bg-white dark:bg-background-dark border-r border-slate-200 dark:border-slate-800 flex flex-col items-center py-8 z-30">
+<div class="mb-10">
+<div class="size-12 bg-primary rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined font-bold">commute</span>
+</div>
+</div>
+<nav class="flex flex-col gap-6 flex-1">
+<button class="flex flex-col items-center gap-1 group">
+<div class="size-10 flex items-center justify-center rounded-xl group-hover:bg-slate-100 dark:group-hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">home</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 group">
+<div class="size-10 flex items-center justify-center rounded-xl sidebar-item-active">
+<span class="material-symbols-outlined fill-1">map</span>
+</div>
+<span class="text-[10px] font-bold text-primary uppercase tracking-tighter">Map</span>
+</button>
+<button class="flex flex-col items-center gap-1 group">
+<div class="size-10 flex items-center justify-center rounded-xl group-hover:bg-slate-100 dark:group-hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">route</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Trips</span>
+</button>
+<button class="flex flex-col items-center gap-1 group">
+<div class="size-10 flex items-center justify-center rounded-xl group-hover:bg-slate-100 dark:group-hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">confirmation_number</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Tickets</span>
+</button>
+</nav>
+<button class="mt-auto flex flex-col items-center gap-1 group">
+<div class="size-10 flex items-center justify-center rounded-xl group-hover:bg-slate-100 dark:group-hover:bg-slate-800 transition-colors overflow-hidden border-2 border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-400">account_circle</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Account</span>
+</button>
+</aside>
+<main class="flex-1 relative h-full overflow-hidden">
+<div class="absolute inset-0 z-0 bg-cover bg-center grayscale-[20%]" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCoIZtQYavANUaFytYJqlTjnfOvyPXedBrCUWj8l5llZ7XxqWDNtkHHeYl83ZPgwXqX68IpuYt0x0zUe8eQZs1A03h2x8JqAMZ4WDCuazDbXgHQaDueSalt0L9PhyIY6pit8puDWSP6VvxqgxyWJIuND-IXsoMFMjPOc04tmGt-QZmVeCOg7yZihNeIa-rVKyyjYmaVsr8noWRE0GGDAJ7slRf_qjOcj5fob6Bzpfp0QSxtYDq5jBRHNHMEUqiNTIuTkzzUOXub5SY");'>
 <div class="relative w-full h-full">
-<!-- Selected Matatu Marker -->
-<div class="absolute top-[45%] left-[55%] flex flex-col items-center">
-<div class="bg-primary text-white p-2 rounded-full matatu-marker relative flex items-center justify-center">
-<span class="material-symbols-outlined text-[20px]">directions_bus</span>
-<div class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 border-2 border-white rounded-full"></div>
-<!-- Direction Arrow -->
-<div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-primary"></div>
+<div class="absolute top-[40%] left-[50%] flex flex-col items-center">
+<div class="bg-primary text-white p-2.5 rounded-full matatu-marker relative flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">directions_bus</span>
+<div class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full"></div>
+<div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[9px] border-t-primary"></div>
 </div>
-<div class="mt-1 px-2 py-0.5 bg-white/90 dark:bg-background-dark/90 rounded-full text-[10px] font-bold shadow-sm">KCA 123X</div>
+<div class="mt-1.5 px-2.5 py-0.5 bg-white/95 dark:bg-background-dark/95 rounded-full text-[11px] font-bold shadow-md border border-slate-100 dark:border-slate-800">KCA 123X</div>
 </div>
-<!-- Other Matatu Marker -->
-<div class="absolute top-[30%] left-[30%] flex flex-col items-center opacity-60">
+<div class="absolute top-[25%] left-[25%] flex flex-col items-center opacity-70">
 <div class="bg-emerald-500 text-white p-2 rounded-full matatu-marker relative flex items-center justify-center">
 <span class="material-symbols-outlined text-[20px]">directions_bus</span>
 <div class="absolute -top-1 -right-1 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[8px] border-b-emerald-500 rotate-45"></div>
 </div>
 <div class="mt-1 px-2 py-0.5 bg-white/90 dark:bg-background-dark/90 rounded-full text-[10px] font-bold shadow-sm">KCB 445Y</div>
 </div>
-<!-- Route Polyline (Simulated) -->
 <svg class="absolute inset-0 w-full h-full pointer-events-none">
-<path class="opacity-40" d="M 0 600 Q 200 550, 400 500 T 800 450" fill="transparent" stroke="#2b8cee" stroke-dasharray="10 15" stroke-linecap="round" stroke-width="6"></path>
+<path class="opacity-50" d="M 0 500 Q 250 450, 450 400 T 900 350" fill="transparent" stroke="#2b8cee" stroke-dasharray="8 12" stroke-linecap="round" stroke-width="6"></path>
 </svg>
 </div>
 </div>
-<!-- Top App Bar & Search Overlay -->
-<div class="absolute top-0 left-0 w-full z-10 p-4">
-<div class="flex items-center gap-4 mb-4">
-<button class="flex size-12 items-center justify-center rounded-full bg-white dark:bg-background-dark shadow-lg">
-<span class="material-symbols-outlined text-[#0d141b] dark:text-white">arrow_back_ios_new</span>
-</button>
-<div class="flex-1 bg-white dark:bg-background-dark rounded-full shadow-lg flex items-center px-4 h-12">
-<span class="material-symbols-outlined text-[#4c739a] mr-2">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-[#4c739a]" placeholder="Search route or destination" type="text"/>
-</div>
-</div>
-</div>
-<!-- Floating Action Buttons -->
-<div class="absolute right-4 bottom-80 z-10 flex flex-col gap-3">
-<div class="flex flex-col rounded-full bg-white dark:bg-background-dark shadow-lg overflow-hidden">
-<button class="size-12 flex items-center justify-center border-b border-slate-100 dark:border-slate-800">
-<span class="material-symbols-outlined text-[#0d141b] dark:text-white">add</span>
-</button>
-<button class="size-12 flex items-center justify-center">
-<span class="material-symbols-outlined text-[#0d141b] dark:text-white">remove</span>
+<div class="absolute top-0 left-0 w-full z-10 p-6 pointer-events-none">
+<div class="flex items-center gap-4 max-w-lg mx-auto pointer-events-auto">
+<div class="flex-1 bg-white dark:bg-background-dark rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 flex items-center px-5 h-14">
+<span class="material-symbols-outlined text-slate-400 mr-3">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-base w-full placeholder:text-slate-400" placeholder="Where are you going?" type="text"/>
+<button class="p-1 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">tune</span>
 </button>
 </div>
-<button class="size-12 flex items-center justify-center rounded-full bg-white dark:bg-background-dark shadow-lg">
-<span class="material-symbols-outlined text-primary">my_location</span>
+</div>
+</div>
+<div class="absolute right-6 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-4">
+<div class="flex flex-col rounded-2xl bg-white dark:bg-background-dark shadow-xl overflow-hidden border border-slate-100 dark:border-slate-800">
+<button class="size-12 flex items-center justify-center border-b border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="size-12 flex items-center justify-center text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined">remove</span>
 </button>
 </div>
-<!-- Bottom Sheet Layer -->
+<button class="size-12 flex items-center justify-center rounded-2xl bg-white dark:bg-background-dark shadow-xl border border-slate-100 dark:border-slate-800 text-primary">
+<span class="material-symbols-outlined">near_me</span>
+</button>
+</div>
 <div class="absolute bottom-0 left-0 w-full z-20">
-<!-- Semi-transparent overlay for map focus -->
 <div class="absolute bottom-full left-0 w-full h-32 pointer-events-none map-gradient"></div>
-<div class="bg-white dark:bg-background-dark rounded-t-lg shadow-[0_-8px_30px_rgb(0,0,0,0.12)] pb-10">
-<!-- Handle Bar -->
-<div class="flex w-full items-center justify-center py-3">
+<div class="bg-white dark:bg-background-dark rounded-t-[2.5rem] shadow-[0_-12px_40px_rgba(0,0,0,0.1)] border-t border-slate-100 dark:border-slate-800 overflow-hidden">
+<div class="flex w-full items-center justify-center pt-4 pb-2">
 <div class="h-1.5 w-12 rounded-full bg-slate-200 dark:bg-slate-700"></div>
 </div>
-<!-- Vehicle Header -->
-<div class="px-6 flex justify-between items-start">
+<div class="max-w-xl mx-auto">
+<div class="px-8 py-2 flex justify-between items-center">
 <div>
-<h2 class="text-2xl font-bold text-[#0d141b] dark:text-white leading-tight">KCA 123X</h2>
-<p class="text-[#4c739a] dark:text-slate-400 font-medium">Route 102 - Dagoretti</p>
+<div class="flex items-center gap-2 mb-0.5">
+<h2 class="text-2xl font-bold tracking-tight">KCA 123X</h2>
+<span class="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Live</span>
 </div>
-<div class="bg-primary/10 dark:bg-primary/20 p-2 rounded-xl">
-<span class="material-symbols-outlined text-primary">verified</span>
+<p class="text-slate-500 dark:text-slate-400 font-medium">Route 102 - Dagoretti Corner</p>
 </div>
-</div>
-<!-- Vehicle Status Cards -->
-<div class="grid grid-cols-3 gap-3 p-6">
-<div class="bg-background-light dark:bg-slate-800/50 p-3 rounded-2xl text-center">
-<p class="text-[10px] uppercase tracking-wider text-[#4c739a] font-bold mb-1">ETA</p>
-<p class="text-lg font-bold text-[#0d141b] dark:text-white">4 <span class="text-xs font-normal">mins</span></p>
-</div>
-<div class="bg-background-light dark:bg-slate-800/50 p-3 rounded-2xl text-center">
-<p class="text-[10px] uppercase tracking-wider text-[#4c739a] font-bold mb-1">Occupancy</p>
-<div class="flex flex-col items-center">
-<span class="text-amber-500 material-symbols-outlined text-lg">person_filled</span>
-<p class="text-xs font-bold text-amber-500">Medium</p>
+<div class="size-12 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined fill-1">verified</span>
 </div>
 </div>
-<div class="bg-background-light dark:bg-slate-800/50 p-3 rounded-2xl text-center">
-<p class="text-[10px] uppercase tracking-wider text-[#4c739a] font-bold mb-1">Fare</p>
-<p class="text-lg font-bold text-primary">50 <span class="text-xs font-normal">KES</span></p>
+<div class="grid grid-cols-3 gap-4 px-8 py-6">
+<div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-3xl text-center border border-slate-100 dark:border-slate-800/50">
+<p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2">ETA</p>
+<p class="text-xl font-bold">4 <span class="text-xs font-normal text-slate-400">mins</span></p>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-3xl text-center border border-slate-100 dark:border-slate-800/50">
+<p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2">Occupancy</p>
+<div class="flex items-center justify-center gap-1 text-amber-500">
+<span class="material-symbols-outlined text-base fill-1">group</span>
+<p class="text-sm font-bold">Medium</p>
 </div>
 </div>
-<!-- Weather Warning Card -->
-<div class="mx-6 mb-6 p-4 bg-blue-50 dark:bg-primary/10 rounded-2xl border border-primary/20 flex items-center gap-3">
-<div class="bg-white dark:bg-background-dark p-2 rounded-full shadow-sm text-primary">
-<span class="material-symbols-outlined text-[20px]">rainy</span>
+<div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-3xl text-center border border-slate-100 dark:border-slate-800/50">
+<p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2">Fare</p>
+<p class="text-xl font-bold text-primary">50 <span class="text-xs font-normal text-slate-400">KES</span></p>
+</div>
+</div>
+<div class="mx-8 mb-6 p-4 bg-blue-50 dark:bg-primary/10 rounded-2xl border border-primary/10 flex items-center gap-4">
+<div class="bg-white dark:bg-background-dark size-10 flex-shrink-0 rounded-xl shadow-sm text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">cloudy_snowing</span>
 </div>
 <div class="flex-1">
-<p class="text-sm font-semibold text-[#0d141b] dark:text-white">Weather Notice</p>
-<p class="text-xs text-[#4c739a] dark:text-slate-400 leading-tight">Rain may cause +5 min delay on Ngong Rd.</p>
+<p class="text-xs font-bold text-primary uppercase tracking-tight mb-0.5">Weather Notice</p>
+<p class="text-sm text-slate-600 dark:text-slate-300 leading-snug">Rain may cause +5 min delay on Ngong Rd.</p>
 </div>
 </div>
-<!-- Action Button -->
-<div class="px-6">
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-5 rounded-full shadow-lg shadow-primary/30 flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
-<span class="material-symbols-outlined">payments</span>
-                        Buy Ticket
-                    </button>
-<p class="text-center text-[10px] text-[#4c739a] mt-4 font-medium uppercase tracking-widest">Powered by MatatuPay Nairobi</p>
+<div class="px-8 pb-10">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold h-16 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-3 transition-transform active:scale-[0.98]">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                            Buy Ticket
+                        </button>
 </div>
 </div>
 </div>
 </div>
+</main>
+
 </body></html>
