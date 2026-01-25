@@ -3,12 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Live Tracking with Sidebar - Nairobi</title>
+  <title>Live Tracking - RideRadar</title>
 
   <!-- External Stylesheets -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
 
   <!-- Tailwind Configuration -->
   <script id="tailwind-config">
@@ -17,7 +24,7 @@
       theme: {
         extend: {
           colors: {
-            "primary": "#2b8cee",
+            "primary": "#2b8dee",
             "background-light": "#f6f7f8",
             "background-dark": "#101922",
           },
@@ -41,114 +48,92 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    .map-gradient {
-      background: linear-gradient(180deg, rgba(246, 247, 248, 0) 0%, rgba(246, 247, 248, 1) 100%);
-    }
-
-    .matatu-marker {
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    }
-
     .sidebar-item-active {
       @apply bg-primary/10 text-primary;
+    }
+
+    .status-badge {
+      @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-tight;
+    }
+
+    .animate-pulse-slow {
+      animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
   </style>
 
   <style>
     body {
-      min-height: max(884px, 100dvh);
+      min-height: 100vh;
+      overflow: hidden;
     }
+
+    main {
+      width: 100%;
+      margin-left: 96px;
+      margin-top: 64px;
+      height: calc(100vh - 64px);
+    }
+
+    .map-wrapper {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    #map {
+      width: 100%;
+      height: clamp(400px, 60vh, 650px);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .bus-icon {
+      background: #2563eb;
+      color: #fff;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+    }
+
+    .route-label {
+      background: white;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid #ddd;
+    }
+
   </style>
+
+
 </head>
+
+
 <body class="bg-background-light dark:bg-background-dark font-display text-[#0d141b] dark:text-white antialiased overflow-hidden h-screen flex">
-  <!-- Sidebar Navigation -->
-  <aside class="w-20 md:w-24 bg-white dark:bg-background-dark border-r border-slate-200 dark:border-slate-800 flex flex-col items-center py-8 z-30">
-    <!-- Logo -->
-    <div class="mb-10">
-      <div class="size-12 bg-primary rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary/20">
-        <span class="material-symbols-outlined font-bold">commute</span>
-      </div>
+  
+  {% include 'user_sidebar.html' %}
+
+  <!-- Main Content Area -->
+  <main class="flex-1 relative flex flex-col items-center justify-start overflow-y-auto ml-24 mt-16 w-full pb-32">
+
+    <!-- Map Container -->
+    <div class="map-wrapper">
+      <div id="map"></div>
     </div>
 
-    <!-- Navigation Menu -->
-    <nav class="flex flex-col gap-6 flex-1">
-      <!-- Home Button -->
-      <button class="flex flex-col items-center gap-1 group">
-        <div class="size-10 flex items-center justify-center rounded-xl group-hover:bg-slate-100 dark:group-hover:bg-slate-800 transition-colors">
-          <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">home</span>
-        </div>
-        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Home</span>
-      </button>
-
-      <!-- Map Button (Active) -->
-      <button class="flex flex-col items-center gap-1 group">
-        <div class="size-10 flex items-center justify-center rounded-xl sidebar-item-active">
-          <span class="material-symbols-outlined fill-1">map</span>
-        </div>
-        <span class="text-[10px] font-bold text-primary uppercase tracking-tighter">Map</span>
-      </button>
-
-      <!-- Trips Button -->
-      <button class="flex flex-col items-center gap-1 group">
-        <div class="size-10 flex items-center justify-center rounded-xl group-hover:bg-slate-100 dark:group-hover:bg-slate-800 transition-colors">
-          <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">route</span>
-        </div>
-        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Trips</span>
-      </button>
-
-      <!-- Tickets Button -->
-      <button class="flex flex-col items-center gap-1 group">
-        <div class="size-10 flex items-center justify-center rounded-xl group-hover:bg-slate-100 dark:group-hover:bg-slate-800 transition-colors">
-          <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">confirmation_number</span>
-        </div>
-        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Tickets</span>
-      </button>
-    </nav>
-
-    <!-- Account Button -->
-    <button class="mt-auto flex flex-col items-center gap-1 group">
-      <div class="size-10 flex items-center justify-center rounded-xl group-hover:bg-slate-100 dark:group-hover:bg-slate-800 transition-colors overflow-hidden border-2 border-slate-200 dark:border-slate-700">
-        <span class="material-symbols-outlined text-slate-400">account_circle</span>
-      </div>
-      <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Account</span>
-    </button>
-  </aside>
-  <!-- Main Content - Map Area -->
-  <main class="flex-1 relative h-full overflow-hidden">
-    <!-- Background Map -->
-    <div class="absolute inset-0 z-0 bg-cover bg-center grayscale-[20%]" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCoIZtQYavANUaFytYJqlTjnfOvyPXedBrCUWj8l5llZ7XxqWDNtkHHeYl83ZPgwXqX68IpuYt0x0zUe8eQZs1A03h2x8JqAMZ4WDCuazDbXgHQaDueSalt0L9PhyIY6pit8puDWSP6VvxqgxyWJIuND-IXsoMFMjPOc04tmGt-QZmVeCOg7yZihNeIa-rVKyyjYmaVsr8noWRE0GGDAJ7slRf_qjOcj5fob6Bzpfp0QSxtYDq5jBRHNHMEUqiNTIuTkzzUOXub5SY");'>
-      <div class="relative w-full h-full">
-        <!-- Primary Bus Marker -->
-        <div class="absolute top-[40%] left-[50%] flex flex-col items-center">
-          <div class="bg-primary text-white p-2.5 rounded-full matatu-marker relative flex items-center justify-center">
-            <span class="material-symbols-outlined text-[24px]">directions_bus</span>
-            <div class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full"></div>
-            <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-t-[9px] border-t-primary"></div>
-          </div>
-          <div class="mt-1.5 px-2.5 py-0.5 bg-white/95 dark:bg-background-dark/95 rounded-full text-[11px] font-bold shadow-md border border-slate-100 dark:border-slate-800">KCA 123X</div>
-        </div>
-
-        <!-- Secondary Bus Marker -->
-        <div class="absolute top-[25%] left-[25%] flex flex-col items-center opacity-70">
-          <div class="bg-emerald-500 text-white p-2 rounded-full matatu-marker relative flex items-center justify-center">
-            <span class="material-symbols-outlined text-[20px]">directions_bus</span>
-            <div class="absolute -top-1 -right-1 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[8px] border-b-emerald-500 rotate-45"></div>
-          </div>
-          <div class="mt-1 px-2 py-0.5 bg-white/90 dark:bg-background-dark/90 rounded-full text-[10px] font-bold shadow-sm">KCB 445Y</div>
-        </div>
-
-        <!-- Route Path SVG -->
-        <svg class="absolute inset-0 w-full h-full pointer-events-none">
-          <path class="opacity-50" d="M 0 500 Q 250 450, 450 400 T 900 350" fill="transparent" stroke="#2b8cee" stroke-dasharray="8 12" stroke-linecap="round" stroke-width="6"></path>
-        </svg>
-      </div>
-    </div>
     <!-- Top Search Bar -->
-    <div class="absolute top-0 left-0 w-full z-10 p-6 pointer-events-none">
-      <div class="flex items-center gap-4 max-w-lg mx-auto pointer-events-auto">
+    <div class="w-full max-w-4xl mx-auto px-4 mt-6 z-20 pointer-events-auto">
+      <div class="flex items-center gap-4 pointer-events-auto">
         <div class="flex-1 bg-white dark:bg-background-dark rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 flex items-center px-5 h-14">
           <span class="material-symbols-outlined text-slate-400 mr-3">search</span>
-          <input class="bg-transparent border-none focus:ring-0 text-base w-full placeholder:text-slate-400" placeholder="Where are you going?" type="text"/>
+          <input class="bg-transparent border-none focus:ring-0 text-base w-full placeholder:text-slate-400 dark:bg-background-dark dark:text-white" placeholder="Search routes..." type="text"/>
           <button class="p-1 text-slate-400 hover:text-primary">
             <span class="material-symbols-outlined">tune</span>
           </button>
@@ -156,39 +141,20 @@
       </div>
     </div>
 
-    <!-- Right Side Controls -->
-    <div class="absolute right-6 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-4">
-      <!-- Zoom Controls -->
-      <div class="flex flex-col rounded-2xl bg-white dark:bg-background-dark shadow-xl overflow-hidden border border-slate-100 dark:border-slate-800">
-        <button class="size-12 flex items-center justify-center border-b border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-300">
-          <span class="material-symbols-outlined">add</span>
-        </button>
-        <button class="size-12 flex items-center justify-center text-slate-600 dark:text-slate-300">
-          <span class="material-symbols-outlined">remove</span>
-        </button>
-      </div>
-
-      <!-- Center Location Button -->
-      <button class="size-12 flex items-center justify-center rounded-2xl bg-white dark:bg-background-dark shadow-xl border border-slate-100 dark:border-slate-800 text-primary">
-        <span class="material-symbols-outlined">near_me</span>
-      </button>
-    </div>
+    
     <!-- Bottom Sheet - Vehicle Details -->
-    <div class="absolute bottom-0 left-0 w-full z-20">
-      <!-- Gradient Overlay -->
-      <div class="absolute bottom-full left-0 w-full h-32 pointer-events-none map-gradient"></div>
-
+    <div class="w-full max-w-4xl mx-auto px-4 mt-8 z-20">
       <!-- Details Panel -->
-      <div class="bg-white dark:bg-background-dark rounded-t-[2.5rem] shadow-[0_-12px_40px_rgba(0,0,0,0.1)] border-t border-slate-100 dark:border-slate-800 overflow-hidden">
+      <div class="bg-white dark:bg-background-dark rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden">
         <!-- Drag Handle -->
         <div class="flex w-full items-center justify-center pt-4 pb-2">
           <div class="h-1.5 w-12 rounded-full bg-slate-200 dark:bg-slate-700"></div>
         </div>
 
         <!-- Details Content -->
-        <div class="max-w-xl mx-auto">
+        <div class="max-w-full px-6 pb-6">
           <!-- Header Section -->
-          <div class="px-8 py-2 flex justify-between items-center">
+          <div class="px-2 py-2 flex justify-between items-center">
             <div>
               <div class="flex items-center gap-2 mb-0.5">
                 <h2 class="text-2xl font-bold tracking-tight">KCA 123X</h2>
@@ -202,7 +168,7 @@
           </div>
 
           <!-- Info Grid -->
-          <div class="grid grid-cols-3 gap-4 px-8 py-6">
+          <div class="grid grid-cols-3 gap-4 px-2 py-6">
             <!-- ETA -->
             <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-3xl text-center border border-slate-100 dark:border-slate-800/50">
               <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2">ETA</p>
@@ -226,7 +192,7 @@
           </div>
 
           <!-- Weather Notice -->
-          <div class="mx-8 mb-6 p-4 bg-blue-50 dark:bg-primary/10 rounded-2xl border border-primary/10 flex items-center gap-4">
+          <div class="mx-2 mb-6 p-4 bg-blue-50 dark:bg-primary/10 rounded-2xl border border-primary/10 flex items-center gap-4">
             <div class="bg-white dark:bg-background-dark size-10 flex-shrink-0 rounded-xl shadow-sm text-primary flex items-center justify-center">
               <span class="material-symbols-outlined text-[20px]">cloudy_snowing</span>
             </div>
@@ -237,7 +203,79 @@
           </div>
 
           <!-- Buy Ticket Button -->
-          <div class="px-8 pb-10">
+          <div class="px-2">
+            <button class="w-full bg-primary hover:bg-primary/90 text-white font-bold h-16 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-3 transition-transform active:scale-[0.98]">
+              <span class="material-symbols-outlined">account_balance_wallet</span>
+              Buy Ticket
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Bottom Sheet - Vehicle Details -->
+    <div class="w-full max-w-4xl mx-auto px-4 mt-8 z-20">
+      <!-- Details Panel -->
+      <div class="bg-white dark:bg-background-dark rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+        <!-- Drag Handle -->
+        <div class="flex w-full items-center justify-center pt-4 pb-2">
+          <div class="h-1.5 w-12 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+        </div>
+
+        <!-- Details Content -->
+        <div class="max-w-full px-6 pb-6">
+          <!-- Header Section -->
+          <div class="px-2 py-2 flex justify-between items-center">
+            <div>
+              <div class="flex items-center gap-2 mb-0.5">
+                <h2 class="text-2xl font-bold tracking-tight">KCA 123X</h2>
+                <span class="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Live</span>
+              </div>
+              <p class="text-slate-500 dark:text-slate-400 font-medium">Route 102 - Dagoretti Corner</p>
+            </div>
+            <div class="size-12 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 rounded-2xl flex items-center justify-center">
+              <span class="material-symbols-outlined fill-1">verified</span>
+            </div>
+          </div>
+
+          <!-- Info Grid -->
+          <div class="grid grid-cols-3 gap-4 px-2 py-6">
+            <!-- ETA -->
+            <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-3xl text-center border border-slate-100 dark:border-slate-800/50">
+              <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2">ETA</p>
+              <p class="text-xl font-bold">4 <span class="text-xs font-normal text-slate-400">mins</span></p>
+            </div>
+
+            <!-- Occupancy -->
+            <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-3xl text-center border border-slate-100 dark:border-slate-800/50">
+              <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2">Occupancy</p>
+              <div class="flex items-center justify-center gap-1 text-amber-500">
+                <span class="material-symbols-outlined text-base fill-1">group</span>
+                <p class="text-sm font-bold">Medium</p>
+              </div>
+            </div>
+
+            <!-- Fare -->
+            <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-3xl text-center border border-slate-100 dark:border-slate-800/50">
+              <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2">Fare</p>
+              <p class="text-xl font-bold text-primary">50 <span class="text-xs font-normal text-slate-400">KES</span></p>
+            </div>
+          </div>
+
+          <!-- Weather Notice -->
+          <div class="mx-2 mb-6 p-4 bg-blue-50 dark:bg-primary/10 rounded-2xl border border-primary/10 flex items-center gap-4">
+            <div class="bg-white dark:bg-background-dark size-10 flex-shrink-0 rounded-xl shadow-sm text-primary flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]">cloudy_snowing</span>
+            </div>
+            <div class="flex-1">
+              <p class="text-xs font-bold text-primary uppercase tracking-tight mb-0.5">Weather Notice</p>
+              <p class="text-sm text-slate-600 dark:text-slate-300 leading-snug">Rain may cause +5 min delay on Ngong Rd.</p>
+            </div>
+          </div>
+
+          <!-- Buy Ticket Button -->
+          <div class="px-2">
             <button class="w-full bg-primary hover:bg-primary/90 text-white font-bold h-16 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-3 transition-transform active:scale-[0.98]">
               <span class="material-symbols-outlined">account_balance_wallet</span>
               Buy Ticket
@@ -247,5 +285,104 @@
       </div>
     </div>
   </main>
+
+  <!-- User Sidebar -->
+  {% include 'user_sidebar.html' %}
+
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    // 1️⃣ Initialize map (Nairobi)
+    const map = L.map("map").setView([-1.2864, 36.8172], 13);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    // 2️⃣ SACCO Routes (Sample Data)
+    const routes = [
+      {
+        name: "Route 46: CBD → Westlands",
+        color: "#2563eb",
+        path: [
+          [-1.2868, 36.8219],
+          [-1.2921, 36.8223],
+          [-1.2785, 36.8124],
+          [-1.2673, 36.8047]
+        ]
+      },
+      {
+        name: "Route 105: CBD → Kasarani",
+        color: "#16a34a",
+        path: [
+          [-1.2868, 36.8219],
+          [-1.2701, 36.8294],
+          [-1.2532, 36.8406],
+          [-1.2237, 36.9002]
+        ]
+      }
+    ];
+
+    // Draw routes
+    routes.forEach(route => {
+      const polyline = L.polyline(route.path, {
+        color: route.color,
+        weight: 5
+      }).addTo(map);
+
+      L.popup({ closeButton: false })
+        .setLatLng(route.path[Math.floor(route.path.length / 2)])
+        .setContent(`<div class="route-label">${route.name}</div>`)
+        .openOn(map);
+    });
+
+    // 3️⃣ Bus Stops
+    const stops = [
+      { name: "Kencom Stage", coords: [-1.2868, 36.8219] },
+      { name: "Museum Hill", coords: [-1.2785, 36.8124] },
+      { name: "Westlands Stage", coords: [-1.2673, 36.8047] }
+    ];
+
+    stops.forEach(stop => {
+      L.circleMarker(stop.coords, {
+        radius: 6,
+        color: "#111",
+        fillColor: "#fff",
+        fillOpacity: 1
+      })
+      .addTo(map)
+      .bindPopup(`<b>${stop.name}</b><br>Bus Stop`);
+    });
+
+    // 4️⃣ Animated Vehicles
+    function createBus(reg, route, eta, passengers) {
+      let index = 0;
+
+      const icon = L.divIcon({
+        className: "",
+        html: `<div class="bus-icon">🚌</div>`
+      });
+
+      const marker = L.marker(route.path[0], { icon }).addTo(map);
+
+      marker.bindPopup(`
+        <b>Vehicle:</b> ${reg}<br>
+        <b>Route:</b> ${route.name}<br>
+        <b>ETA:</b> ${eta}<br>
+        <b>Passengers:</b> ${passengers}
+      `);
+
+      setInterval(() => {
+        index = (index + 1) % route.path.length;
+        marker.setLatLng(route.path[index]);
+      }, 2000);
+    }
+
+    // Spawn vehicles
+    createBus("KCA 123X", routes[0], "6 mins", 18);
+    createBus("KCB 445Y", routes[1], "12 mins", 27);
+  </script>
+
 </body>
 </html>
