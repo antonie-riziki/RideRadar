@@ -40,7 +40,7 @@
   <style type="text/tailwindcss">
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      min-height: 100dvh;
+      /* min-height: 100dvh; */
     }
 
     .material-symbols-outlined {
@@ -54,152 +54,359 @@
     .sidebar-item {
       @apply flex flex-col items-center justify-center gap-1 w-full py-4 transition-colors duration-200;
     }
+
+    .stat-card {
+      @apply bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all;
+    }
+
+    .feature-card {
+      @apply bg-gradient-to-br rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:scale-105;
+    }
   </style>
 
   <style>
     body {
-      min-height: max(884px, 100dvh);
+      /* min-height: max(884px, 100dvh); */
+      /* overflow-x:auto; */
+      /* height: 1000px; */
+      padding-top: 64px;
+
     }
+
+
+    body, html {
+        overflow-y: auto;
+        height: auto;
+        /* display: block; */
+        width: 100%;
+    }
+
   </style>
 </head>
+
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 flex overflow-hidden">
-  <!-- Sidebar Navigation -->
-  <aside class="w-20 md:w-24 h-screen bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col items-center py-6 sticky top-0 z-50">
-    <div class="mb-8">
-      <div class="size-12 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
-        <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1">directions_bus</span>
-      </div>
-    </div>
-
-    <!-- Navigation Menu -->
-    <nav class="flex-1 w-full flex flex-col items-center gap-2">
-      <a class="sidebar-item active-nav" href="#">
-        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">home</span>
-        <span class="text-[10px] font-bold">Home</span>
-      </a>
-      <a class="sidebar-item text-slate-400 hover:text-primary" href="#">
-        <span class="material-symbols-outlined">map</span>
-        <span class="text-[10px] font-bold">Map</span>
-      </a>
-      <a class="sidebar-item text-slate-400 hover:text-primary" href="#">
-        <span class="material-symbols-outlined">route</span>
-        <span class="text-[10px] font-bold">Trips</span>
-      </a>
-      <a class="sidebar-item text-slate-400 hover:text-primary" href="#">
-        <span class="material-symbols-outlined">confirmation_number</span>
-        <span class="text-[10px] font-bold">Tickets</span>
-      </a>
-    </nav>
-
-    <!-- Sidebar Footer Actions -->
-    <div class="mt-auto flex flex-col items-center gap-6">
-      <button class="text-slate-400 hover:text-primary">
-        <span class="material-symbols-outlined">notifications</span>
-      </button>
-      <a class="sidebar-item text-slate-400 hover:text-primary" href="#">
-        <div class="size-10 rounded-full bg-cover bg-center border-2 border-white dark:border-slate-800" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_XoeXP2IpHMDKSOB9AQMXcC7Bsq3lXbMMIumXbpeBW7Nb96PXGy8yX1jGiemFiggvFVRZ8Jg7ph6ZNZ5LTngyxGoIJ9zVf9NRYoj4agOc0J40ErSND_OUfpvankd8oU9TLi-Z-rIGIV2cj7By393niTVrfIXTGg_ZyDXmHx3Z5Jwr8Sc_gNMrJK8C024eEVpkMxmjffDMpyqkTGsgFik0ubL69vQJpvOrobEwIIMTzilwqAKHLoTyvyPD3ZB_fqLv3AuZMUby8G4');"></div>
-        <span class="text-[10px] font-bold mt-1">Account</span>
-      </a>
-    </div>
-  </aside>
+  
+  {% include 'user_sidebar.html' %}
 
   <!-- Main Content -->
-  <main class="flex-1 h-screen overflow-y-auto relative flex flex-col">
-  <!-- Main Content -->
-  <main class="flex-1 h-screen overflow-y-auto relative flex flex-col">
-    <!-- Hero and Search Section -->
-    <div class="px-6 py-8 md:px-10 max-w-2xl mx-auto w-full pb-48">
-      <!-- Header Greeting -->
-      <header class="mb-10">
-        <h1 class="text-3xl md:text-4xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white">
-          Good morning 👋 <br/>
-          <span class="text-primary">Ready to head to Westlands?</span>
+  <main class="flex-1 overflow-y-auto">
+    <div class="p-6 md:p-8 max-w-7xl mx-auto">
+
+      <!-- Header Section with Greeting -->
+      <section class="mb-8">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-2">
+          Good morning, Juma 👋
         </h1>
-      </header>
+        <p class="text-slate-500 dark:text-slate-400">Ready for your daily commute?</p>
+      </section>
 
       <!-- Search Bar -->
-      <div class="mb-10">
+      <div class="mb-8">
         <div class="relative flex items-center group">
           <div class="absolute left-4 text-slate-400 group-focus-within:text-primary transition-colors">
             <span class="material-symbols-outlined">search</span>
           </div>
-          <input class="w-full h-16 pl-12 pr-4 bg-white dark:bg-slate-800 border-none rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-none text-lg font-medium placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 transition-all outline-none" placeholder="Where to?" type="text"/>
+          <input class="w-full h-14 pl-12 pr-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl text-lg font-medium placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all outline-none" placeholder="Where would you like to go?" type="text"/>
         </div>
       </div>
 
-      <!-- Quick Actions Section -->
-      <section class="mb-10">
-        <h3 class="text-lg font-bold mb-4 px-1">Quick Actions</h3>
-        <div class="grid grid-cols-1 gap-4">
-          <!-- Nearest Stop -->
-          <button class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 active:scale-[0.98] transition-all text-left group">
-            <div class="size-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center transition-colors group-hover:bg-primary group-hover:text-white">
-              <span class="material-symbols-outlined">location_on</span>
-            </div>
-            <div>
-              <p class="font-bold text-slate-900 dark:text-white">Nearest Stop</p>
-              <p class="text-sm text-slate-500">2 mins walk from here</p>
-            </div>
-          </button>
+      <!-- Two Column Layout -->
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
 
-          <!-- My Usual Route -->
-          <button class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 active:scale-[0.98] transition-all text-left group">
-            <div class="size-14 rounded-xl bg-accent-green/10 text-accent-green flex items-center justify-center transition-colors group-hover:bg-accent-green group-hover:text-white">
-              <span class="material-symbols-outlined">history</span>
-            </div>
-            <div>
-              <p class="font-bold text-slate-900 dark:text-white">My Usual Route</p>
-              <p class="text-sm text-slate-500">Route 14: CBD - Ngong</p>
-            </div>
-          </button>
+        <!-- Left Column: Main Content -->
+        <div class="xl:col-span-2 space-y-8">
 
-          <!-- Track a Vehicle -->
-          <button class="flex items-center gap-4 p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 active:scale-[0.98] transition-all text-left group">
-            <div class="size-14 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center transition-colors group-hover:bg-orange-500 group-hover:text-white">
-              <span class="material-symbols-outlined">directions_bus</span>
+          <!-- Quick Stats Section -->
+          <section>
+            <h2 class="text-xl font-bold mb-4">Your Stats</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <!-- Total Rides -->
+              <div class="stat-card">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-3xl font-bold text-slate-900 dark:text-white">48</span>
+                  <span class="text-primary text-2xl">🚐</span>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Total Rides</p>
+              </div>
+
+              <!-- Total Spent -->
+              <div class="stat-card">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-3xl font-bold text-slate-900 dark:text-white">KES 3.2K</span>
+                  <span class="text-orange-500 text-2xl">💰</span>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">This Month</p>
+              </div>
+
+              <!-- Avg Rating -->
+              <div class="stat-card">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-3xl font-bold text-slate-900 dark:text-white">4.8</span>
+                  <span class="text-yellow-500 text-2xl">⭐</span>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Your Rating</p>
+              </div>
+
+              <!-- Points Balance -->
+              <div class="stat-card">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-3xl font-bold text-accent-green">850</span>
+                  <span class="text-accent-green text-2xl">⚡</span>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Reward Points</p>
+              </div>
             </div>
-            <div>
-              <p class="font-bold text-slate-900 dark:text-white">Track a Vehicle</p>
-              <p class="text-sm text-slate-500">Live fleet map</p>
+          </section>
+
+          <!-- Quick Actions Grid -->
+          <section>
+            <h2 class="text-xl font-bold mb-4">Quick Actions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Nearest Bus Stop -->
+              <button class="feature-card from-primary to-blue-600 group">
+                <div class="flex items-start justify-between">
+                  <div class="text-left">
+                    <h3 class="font-bold text-lg">Nearest Stop</h3>
+                    <p class="text-white/80 text-sm mt-1">Prestige Plaza • 2 mins</p>
+                  </div>
+                  <span class="material-symbols-outlined text-3xl opacity-50 group-hover:opacity-100 transition-opacity">location_on</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/20">
+                  <p class="text-xs font-medium text-white/80">Route 125 • CBD - Rongai</p>
+                </div>
+              </button>
+
+              <!-- My Favorite Routes -->
+              <button class="feature-card from-accent-green to-emerald-600 group">
+                <div class="flex items-start justify-between">
+                  <div class="text-left">
+                    <h3 class="font-bold text-lg">Favorite Routes</h3>
+                    <p class="text-white/80 text-sm mt-1">5 saved routes</p>
+                  </div>
+                  <span class="material-symbols-outlined text-3xl opacity-50 group-hover:opacity-100 transition-opacity">bookmark</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/20">
+                  <p class="text-xs font-medium text-white/80">CBD • Westlands • Ngong</p>
+                </div>
+              </button>
+
+              <!-- Track a Vehicle -->
+              <button class="feature-card from-orange-500 to-orange-600 group">
+                <div class="flex items-start justify-between">
+                  <div class="text-left">
+                    <h3 class="font-bold text-lg">Track Vehicle</h3>
+                    <p class="text-white/80 text-sm mt-1">Live location</p>
+                  </div>
+                  <span class="material-symbols-outlined text-3xl opacity-50 group-hover:opacity-100 transition-opacity">directions_bus</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/20">
+                  <p class="text-xs font-medium text-white/80">Map View • ETA Updates</p>
+                </div>
+              </button>
+
+              <!-- Schedule a Ride -->
+              <button class="feature-card from-purple-500 to-purple-600 group">
+                <div class="flex items-start justify-between">
+                  <div class="text-left">
+                    <h3 class="font-bold text-lg">Schedule Ride</h3>
+                    <p class="text-white/80 text-sm mt-1">Plan ahead</p>
+                  </div>
+                  <span class="material-symbols-outlined text-3xl opacity-50 group-hover:opacity-100 transition-opacity">schedule</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-white/20">
+                  <p class="text-xs font-medium text-white/80">Book in advance</p>
+                </div>
+              </button>
             </div>
-          </button>
+          </section>
+
+          <!-- Active Ticket Banner -->
+          <section>
+            <h2 class="text-xl font-bold mb-4">Active Ticket</h2>
+            <div class="bg-gradient-to-r from-primary to-blue-600 text-white rounded-2xl p-6 shadow-lg">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <p class="text-white/80 text-sm">Route 23 • KDJ 123G</p>
+                  <h3 class="text-2xl font-bold mt-1">Next Ride in 6 mins</h3>
+                </div>
+                <div class="text-5xl opacity-20">🚌</div>
+              </div>
+              <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/20">
+                <div>
+                  <p class="text-white/70 text-xs">FROM</p>
+                  <p class="font-bold">Prestige Plaza</p>
+                </div>
+                <div>
+                  <p class="text-white/70 text-xs">TO</p>
+                  <p class="font-bold">Westlands</p>
+                </div>
+              </div>
+              <button class="w-full mt-4 bg-white text-primary font-bold py-2 rounded-lg hover:bg-white/90 transition-all">
+                View Details
+              </button>
+            </div>
+          </section>
+
+          <!-- Recent Trips -->
+          <section>
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-xl font-bold">Recent Trips</h2>
+              <a href="#" class="text-primary text-sm font-semibold hover:underline">View All</a>
+            </div>
+            <div class="space-y-3">
+              <!-- Trip Item 1 -->
+              <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-4 flex-1">
+                    <div class="size-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                      <span class="material-symbols-outlined">directions_bus</span>
+                    </div>
+                    <div class="flex-1">
+                      <p class="font-bold text-slate-900 dark:text-white">Westlands to CBD</p>
+                      <p class="text-xs text-slate-500">Route 14 • Jan 24, 7:30 AM</p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-bold text-slate-900 dark:text-white">KES 80</p>
+                    <p class="text-xs text-accent-green">Completed ✓</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Trip Item 2 -->
+              <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-4 flex-1">
+                    <div class="size-12 rounded-lg bg-orange-500/10 text-orange-500 flex items-center justify-center">
+                      <span class="material-symbols-outlined">directions_bus</span>
+                    </div>
+                    <div class="flex-1">
+                      <p class="font-bold text-slate-900 dark:text-white">CBD to Rongai</p>
+                      <p class="text-xs text-slate-500">Route 125 • Jan 23, 5:15 PM</p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-bold text-slate-900 dark:text-white">KES 120</p>
+                    <p class="text-xs text-accent-green">Completed ✓</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Trip Item 3 -->
+              <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-4 flex-1">
+                    <div class="size-12 rounded-lg bg-accent-green/10 text-accent-green flex items-center justify-center">
+                      <span class="material-symbols-outlined">directions_bus</span>
+                    </div>
+                    <div class="flex-1">
+                      <p class="font-bold text-slate-900 dark:text-white">Ngong to Westlands</p>
+                      <p class="text-xs text-slate-500">Route 46 • Jan 23, 8:45 AM</p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-bold text-slate-900 dark:text-white">KES 100</p>
+                    <p class="text-xs text-accent-green">Completed ✓</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
         </div>
-      </section>
 
-      <!-- Traffic Update Banner -->
-      <section class="mb-10">
-        <div class="relative w-full h-44 rounded-2xl overflow-hidden shadow-md group cursor-pointer">
-          <div class="absolute inset-0 bg-slate-200 transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCoIZtQYavANUaFytYJqlTjnfOvyPXedBrCUWj8l5llZ7XxqWDNtkHHeYl83ZPgwXqX68IpuYt0x0zUe8eQZs1A03h2x8JqAMZ4WDCuazDbXgHQaDueSalt0L9PhyIY6pit8puDWSP6VvxqgxyWJIuND-IXsoMFMjPOc04tmGt-QZmVeCOg7yZihNeIa-rVKyyjYmaVsr8noWRE0GGDAJ7slRf_qjOcj5fob6Bzpfp0QSxtYDq5jBRHNHMEUqiNTIuTkzzUOXub5SY'); background-size: cover; background-position: center;">
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 flex items-center gap-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold shadow-lg">
-            <span class="size-2 rounded-full bg-accent-green animate-pulse"></span>
-            Live Traffic Updates
-          </div>
-        </div>
-      </section>
-    </div>
+        <!-- Right Column: Sidebar Cards -->
+        <div class="space-y-6">
 
-    <!-- Floating CTA Section -->
-    <div class="absolute bottom-0 left-0 right-0 p-6 pointer-events-none">
-      <div class="max-w-2xl mx-auto w-full pointer-events-auto">
-        <div class="bg-primary text-white rounded-2xl shadow-2xl p-4 md:p-6 flex items-center justify-between border border-white/20 backdrop-blur-lg">
-          <div class="flex items-center gap-4">
-            <div class="size-12 md:size-14 bg-white/20 rounded-xl flex items-center justify-center">
-              <span class="material-symbols-outlined text-3xl md:text-4xl">airport_shuttle</span>
+          <!-- Wallet Card -->
+          <section class="bg-gradient-to-br from-primary to-blue-600 text-white rounded-2xl p-6 shadow-lg">
+            <div class="flex items-center justify-between mb-8">
+              <h3 class="text-lg font-bold">My Wallet</h3>
+              <span class="material-symbols-outlined text-3xl opacity-50">wallet</span>
             </div>
-            <div>
-              <h4 class="font-bold text-lg md:text-xl leading-none">Arriving in 6 mins</h4>
-              <p class="text-white/80 text-sm mt-1">Route 23 • Matatu KDJ 123G</p>
+            <div class="mb-6">
+              <p class="text-white/70 text-sm">Current Balance</p>
+              <p class="text-4xl font-bold mt-1">KES 2,450</p>
             </div>
-          </div>
-          <button class="bg-white text-primary px-6 py-2.5 rounded-full font-bold text-sm shadow-lg active:scale-95 transition-transform">
-            Track
-          </button>
+            <div class="space-y-2 pt-4 border-t border-white/20">
+              <p class="text-xs text-white/70">Last topup: Jan 24 • +KES 500</p>
+              <button class="w-full mt-4 bg-white text-primary font-bold py-2 rounded-lg hover:bg-white/90 transition-all">
+                Add Funds
+              </button>
+            </div>
+          </section>
+
+          <!-- Smart Recommendations -->
+          <section class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-100 dark:border-slate-700 shadow-sm">
+            <h3 class="text-lg font-bold mb-4">Smart Recommendations</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 cursor-pointer transition-colors">
+                <span class="text-xl">✨</span>
+                <div class="flex-1">
+                  <p class="text-sm font-semibold text-slate-900 dark:text-white">Peak Hour Deal</p>
+                  <p class="text-xs text-slate-500">20% off before 9 AM</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 cursor-pointer transition-colors">
+                <span class="text-xl">🎁</span>
+                <div class="flex-1">
+                  <p class="text-sm font-semibold text-slate-900 dark:text-white">Referral Bonus</p>
+                  <p class="text-xs text-slate-500">Get KES 200 per friend</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 cursor-pointer transition-colors">
+                <span class="text-xl">🚌</span>
+                <div class="flex-1">
+                  <p class="text-sm font-semibold text-slate-900 dark:text-white">Express Routes</p>
+                  <p class="text-xs text-slate-500">Faster commutes available</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Traffic & Alerts -->
+          <section class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-100 dark:border-slate-700 shadow-sm">
+            <h3 class="text-lg font-bold mb-4">Traffic Alerts</h3>
+            <div class="space-y-3">
+              <div class="flex items-start gap-3 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-900/50">
+                <span class="text-xl">⚠️</span>
+                <div class="flex-1">
+                  <p class="text-sm font-semibold text-slate-900 dark:text-white">Waiyaki Way</p>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">Heavy traffic • +25 mins</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-900/50">
+                <span class="text-xl">✅</span>
+                <div class="flex-1">
+                  <p class="text-sm font-semibold text-slate-900 dark:text-white">Ngong Road</p>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">Clear traffic • On time</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Safety Rating -->
+          <section class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-100 dark:border-slate-700 shadow-sm">
+            <h3 class="text-lg font-bold mb-4">Your Profile</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-slate-600 dark:text-slate-400">Safety Rating</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">4.8/5 ⭐</span>
+              </div>
+              <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                <div class="bg-accent-green h-2 rounded-full" style="width: 96%"></div>
+              </div>
+              <p class="text-xs text-slate-500 mt-2">Excellent commuter • 0 incidents</p>
+            </div>
+          </section>
+
         </div>
+
       </div>
+
     </div>
-    {% include 'chatbot.html' %}
   </main>
+
+  {% include 'chatbot.html' %}
 </body>
 </html>
