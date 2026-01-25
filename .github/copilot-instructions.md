@@ -1,4 +1,4 @@
-# RideRadar Instructions
+# RideRadar Copilot Instructions
 
 ## Project Overview
 RideRadar is a **Django + React full-stack platform** for urban public transport (matatu/bus) commuters in Kenya. It provides:
@@ -122,4 +122,3 @@ CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
 - Frontend routes: [frontend/src/App.jsx](../frontend/src/App.jsx), [frontend/src/api/api.js](../frontend/src/api/api.js)
 - Docs: [frontend/docs/frontend_integration.md](../frontend/docs/frontend_integration.md), [frontend/docs/UX_ARCHITECTURE.md](../frontend/docs/UX_ARCHITECTURE.md)
 - Config: [rideradar/settings.py](../rideradar/settings.py), [frontend/vite.config.js](../frontend/vite.config.js)
-
