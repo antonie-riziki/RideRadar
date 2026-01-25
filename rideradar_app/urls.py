@@ -14,5 +14,7 @@ urlpatterns = [
     path('user/login/', views.user_login, name='user_login'),
     path('user/register/', views.user_register, name='user_register'),
     path('user/live-tracking/', views.user_live_tracking, name='user_live_tracking'),
-    path('user/tickets/', views.user_tickets, name='user_tickets'), 
+    path('user/tickets/', views.user_tickets, name='user_tickets'),
+    path('chatbot-response/', views.chatbot_response, name='chatbot_response'),
+
 ]
