@@ -19,7 +19,7 @@ def admin_login(request):
 
 
 def admin_register(request):
-    return render(request, 'admin_register.html')
+    return render(request, 'admin_registration.html')
 
 
 def admin_analytics(request):
@@ -48,11 +48,11 @@ def user_login(request):
 
 
 def user_register(request):
-    return render(request, 'user_register.html')
+    return render(request, 'user_registration.html')
 
 
 def user_live_tracking(request):
-    return render(request, 'user_live_tracking.html')
+    return render(request, 'live_tracking.html')
 
 
 def user_tickets(request):

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Commuter Login &amp; Sign Up</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom hide for radio inputs in segmented buttons */
+        .segmented-radio:checked + span {
+            background-color: white;
+            color: #0d1b12;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen transition-colors duration-300">
+<div class="relative flex h-full min-h-screen w-full flex-col max-w-[480px] mx-auto overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="flex items-center bg-transparent p-4 pb-2 justify-between">
+<div class="text-background-dark dark:text-white flex size-12 shrink-0 items-center justify-center rounded-full hover:bg-black/5 cursor-pointer">
+<span class="material-symbols-outlined">arrow_back_ios_new</span>
+</div>
+<h2 class="text-background-dark dark:text-white text-lg font-bold leading-tight tracking-tight flex-1 text-center pr-12">Nairobi Commuter</h2>
+</div>
+<!-- Header Image & Welcome Message -->
+<div class="@container">
+<div class="px-4 py-3">
+<div class="bg-cover bg-center flex flex-col justify-end overflow-hidden rounded-xl min-h-[220px] shadow-sm relative group" data-alt="Aerial view of Nairobi city skyline at sunrise" style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 50%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuBwzv3J3qWAQXVxdl0t0rBBZRPPes_OLwhu19jnRYIQkqwR9HFJr06oxJTgid0lTuRJCTo9Qlb0QwzTFTGrI5FF_t4MVvjzlUkSlMX19gUrEpdvH6UnmEq30CbVF_bBNhQH8-z3mSjoDxejHr4mIylIPHCKaomjBb5l1fR3xRldkbNpBizrWZgd_CiFRjnsURFRyufdDFOBXD5GxNhbYX3ZVQqNfo08SlQfcCQy6PIj4nOZBAF0d037PagZmuk9NcVJqebU04jwtjQ");'>
+<div class="flex p-6">
+<div>
+<p class="text-white tracking-tight text-3xl font-bold leading-tight">Karibu!</p>
+<p class="text-white/80 text-sm font-medium mt-1">Let's get you moving around the city</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Segmented Toggle -->
+<div class="flex px-4 py-3 mt-2">
+<div class="flex h-12 flex-1 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/5 p-1.5 border border-primary/20">
+<label class="relative flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full">
+<input checked="" class="peer sr-only" name="auth-mode" type="radio" value="login"/>
+<span class="z-10 text-sm font-semibold text-background-dark/60 dark:text-white/60 peer-checked:text-background-dark peer-checked:bg-white dark:peer-checked:bg-primary/20 dark:peer-checked:text-primary w-full h-full flex items-center justify-center rounded-full transition-all">Login</span>
+</label>
+<label class="relative flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full">
+<input class="peer sr-only" name="auth-mode" type="radio" value="signup"/>
+<span class="z-10 text-sm font-semibold text-background-dark/60 dark:text-white/60 peer-checked:text-background-dark peer-checked:bg-white dark:peer-checked:bg-primary/20 dark:peer-checked:text-primary w-full h-full flex items-center justify-center rounded-full transition-all">Sign Up</span>
+</label>
+</div>
+</div>
+<!-- Headline -->
+<h2 class="text-background-dark dark:text-white tracking-tight text-[24px] font-bold leading-tight px-6 pt-4 pb-2">Enter details</h2>
+<!-- Form Fields -->
+<div class="px-4 space-y-4">
+<!-- Phone Number (Always Visible) -->
+<div class="flex flex-col">
+<p class="text-background-dark dark:text-white/70 text-sm font-semibold leading-normal pb-2 px-2">Phone Number</p>
+<div class="flex w-full items-stretch rounded-full overflow-hidden border border-black/10 dark:border-white/10 bg-white dark:bg-background-dark focus-within:border-primary transition-colors">
+<div class="flex items-center pl-5 pr-2 border-r border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02]">
+<span class="text-sm font-bold text-background-dark dark:text-white">+254</span>
+</div>
+<input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-4 text-base font-medium" placeholder="7XX XXX XXX" type="tel"/>
+<div class="text-primary flex items-center justify-center pr-5">
+<span class="material-symbols-outlined">call</span>
+</div>
+</div>
+</div>
+<!-- Sign Up Specific Fields (In a real app, these would toggle visibility) -->
+<div class="space-y-4" id="signup-fields">
+<div class="flex flex-col">
+<p class="text-background-dark dark:text-white/70 text-sm font-semibold leading-normal pb-2 px-2">Full Name</p>
+<div class="flex w-full items-stretch rounded-full overflow-hidden border border-black/10 dark:border-white/10 bg-white dark:bg-background-dark focus-within:border-primary transition-colors">
+<input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-5 text-base font-medium" placeholder="e.g. Juma Bakari" type="text"/>
+<div class="text-primary flex items-center justify-center pr-5">
+<span class="material-symbols-outlined">person</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col">
+<p class="text-background-dark dark:text-white/70 text-sm font-semibold leading-normal pb-2 px-2">Preferred Route</p>
+<div class="flex w-full items-stretch rounded-full overflow-hidden border border-black/10 dark:border-white/10 bg-white dark:bg-background-dark focus-within:border-primary transition-colors">
+<input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-5 text-base font-medium" placeholder="Search route (e.g. Rongai, Thika Rd)" type="text"/>
+<div class="text-primary flex items-center justify-center pr-5">
+<span class="material-symbols-outlined">near_me</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<div class="px-4 py-8">
+<button class="w-full h-16 bg-primary text-background-dark font-bold text-lg rounded-full shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all">
+                Continue
+                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Social Login Divider -->
+<div class="flex items-center px-8 py-2">
+<div class="h-[1px] flex-1 bg-black/10 dark:bg-white/10"></div>
+<span class="px-4 text-xs font-bold text-background-dark/40 dark:text-white/40 uppercase tracking-widest">Or connect with</span>
+<div class="h-[1px] flex-1 bg-black/10 dark:bg-white/10"></div>
+</div>
+<!-- Social Icons -->
+<div class="flex justify-center gap-6 py-6">
+<button class="size-14 rounded-full border border-black/10 dark:border-white/10 bg-white dark:bg-white/5 flex items-center justify-center hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<svg class="size-6" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+</button>
+<button class="size-14 rounded-full border border-black/10 dark:border-white/10 bg-white dark:bg-white/5 flex items-center justify-center hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<svg class="size-6 dark:fill-white" viewbox="0 0 24 24">
+<path d="M17.05 20.28c-.98.95-2.05 1.78-3.32 1.78-1.22 0-1.63-.74-3.13-.74-1.51 0-1.95.72-3.13.74-1.25 0-2.42-.9-3.41-2.35-2.01-2.91-1.54-7.51 1.01-10.25 1.27-1.36 2.85-2.13 4.28-2.13 1.25 0 2.25.75 3.02.75.76 0 1.95-.91 3.4-.91 1.23 0 2.85.66 3.86 1.92-2.49 1.23-2.08 4.75.41 6 1.03.52 1.83 1.34 2.11 2.17-2.11 3.12-4.04 2.02-5.1 3.02zM12.03 7.25c-.02-2.23 1.63-4.22 3.65-4.25.18 2.37-1.85 4.33-3.65 4.25z"></path>
+</svg>
+</button>
+</div>
+<!-- Footer Links -->
+<div class="mt-auto pb-10 px-6 text-center">
+<p class="text-[11px] text-background-dark/40 dark:text-white/40 leading-relaxed uppercase tracking-wider">
+                By continuing, you agree to our <br/>
+<a class="text-primary font-bold" href="#">Terms of Service</a> &amp; <a class="text-primary font-bold" href="#">Privacy Policy</a>
+</p>
+</div>
+</div>
+</body></html>

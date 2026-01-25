@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fleet Owner Registration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#1392ec",
+                "background-light": "#f6f7f8",
+                "background-dark": "#101a22",
+              },
+              fontFamily: {
+                "display": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#0d161b] dark:text-slate-50">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- TopAppBar -->
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10 border-b border-slate-200 dark:border-slate-800">
+<div class="text-primary flex size-12 shrink-0 items-center cursor-pointer" data-icon="ArrowBack">
+<span class="material-symbols-outlined">arrow_back</span>
+</div>
+<h2 class="text-[#0d161b] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1">Fleet Owner Registration</h2>
+<div class="w-12"></div> <!-- Spacer for balance -->
+</div>
+<!-- HeaderImage: Nairobi Transit Hub -->
+<div class="@container">
+<div class="@[480px]:px-4 @[480px]:py-3">
+<div class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-slate-200 @[480px]:rounded-lg min-h-[240px] relative" data-alt="A high-quality photo of a busy Nairobi transit hub with matatus and commuters" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAqhbBYRpIQk9pINSKhulPPkrlTnUzohJNYPX4FFdp_se8rDFV9f7FpeG4OUUlTcFkUmK-ilQszCSbN6WdUl5GVoRPRNm_y7PIdD3vBHMhgw1Mv0HciCQoHoJGvtD5BqvLJEyIDjiHJSzy1dvXHJx6Zd0L9lPW_LDx772eJ9A4riEV2P0aMOOxnoji1AyypnDm91aqT3Hu2nGUAvajbId8u776KOQ88rFx_hI2IcsYt90JXaUx3Xvg4EwaSeez6_CXxI6b8zh3E0RQ");'>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="relative p-6">
+<span class="inline-block px-3 py-1 bg-primary text-white text-xs font-bold rounded-full mb-2">PARTNER NETWORK</span>
+<h1 class="text-white text-2xl font-bold">Join Nairobi's Smart Transit Network</h1>
+</div>
+</div>
+</div>
+</div>
+<!-- HeadlineText -->
+<div class="px-4 pt-6">
+<h2 class="text-[#0d161b] dark:text-white tracking-light text-[28px] font-bold leading-tight">Register Your Fleet</h2>
+<p class="text-[#4c799a] dark:text-slate-400 text-base font-normal leading-normal mt-2">Empowering SACCOs and Fleet Owners with professional digital management tools.</p>
+</div>
+<!-- Registration Form -->
+<div class="flex flex-col gap-1 py-4">
+<!-- SACCO Name Field -->
+<div class="flex flex-wrap items-end gap-4 px-4 py-3">
+<label class="flex flex-col min-w-40 flex-1">
+<p class="text-[#0d161b] dark:text-slate-200 text-sm font-medium leading-normal pb-2">SACCO Name</p>
+<div class="relative">
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d161b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary border border-[#cfdde7] dark:border-slate-700 bg-white dark:bg-slate-900 h-14 placeholder:text-[#4c799a] p-[15px] text-base font-normal leading-normal" placeholder="e.g. Super Metro SACCO" type="text" value=""/>
+</div>
+</label>
+</div>
+<!-- Fleet Size Field -->
+<div class="flex flex-wrap items-end gap-4 px-4 py-3">
+<label class="flex flex-col min-w-40 flex-1">
+<p class="text-[#0d161b] dark:text-slate-200 text-sm font-medium leading-normal pb-2">Fleet Size</p>
+<div class="relative">
+<select class="form-select flex w-full min-w-0 flex-1 rounded-lg text-[#0d161b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary border border-[#cfdde7] dark:border-slate-700 bg-white dark:bg-slate-900 h-14 p-[15px] text-base font-normal leading-normal appearance-none">
+<option disabled="" selected="" value="">Select number of vehicles</option>
+<option value="1-5">1 - 5 Vehicles</option>
+<option value="6-20">6 - 20 Vehicles</option>
+<option value="21-50">21 - 50 Vehicles</option>
+<option value="50+">50+ Vehicles</option>
+</select>
+<div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-[#4c799a]">expand_more</span>
+</div>
+</div>
+</label>
+</div>
+<!-- Contact Person Field -->
+<div class="flex flex-wrap items-end gap-4 px-4 py-3">
+<label class="flex flex-col min-w-40 flex-1">
+<p class="text-[#0d161b] dark:text-slate-200 text-sm font-medium leading-normal pb-2">Contact Person</p>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d161b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary border border-[#cfdde7] dark:border-slate-700 bg-white dark:bg-slate-900 h-14 placeholder:text-[#4c799a] p-[15px] text-base font-normal leading-normal" placeholder="Full name of representative" type="text" value=""/>
+</label>
+</div>
+<!-- Business Email Field -->
+<div class="flex flex-wrap items-end gap-4 px-4 py-3">
+<label class="flex flex-col min-w-40 flex-1">
+<p class="text-[#0d161b] dark:text-slate-200 text-sm font-medium leading-normal pb-2">Business Email</p>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d161b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary border border-[#cfdde7] dark:border-slate-700 bg-white dark:bg-slate-900 h-14 placeholder:text-[#4c799a] p-[15px] text-base font-normal leading-normal" placeholder="admin@sacco.co.ke" type="email" value=""/>
+</label>
+</div>
+<!-- Action Button -->
+<div class="px-4 py-6">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+<span>Get Started</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<div class="mt-6 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-green-500 text-sm">verified_user</span>
+<p class="text-xs text-[#4c799a] dark:text-slate-500 font-medium">Secure business registration &amp; data protection</p>
+</div>
+</div>
+<!-- Footer Login Link -->
+<div class="px-4 pb-12 pt-2 text-center">
+<p class="text-[#4c799a] dark:text-slate-400 text-sm">
+                    Already have an account? 
+                    <a class="text-primary font-bold hover:underline ml-1" href="#">Login</a>
+</p>
+</div>
+</div>
+<!-- Bottom Spacer -->
+<div class="h-10 bg-background-light dark:bg-background-dark"></div>
+</div>
+</body></html>
