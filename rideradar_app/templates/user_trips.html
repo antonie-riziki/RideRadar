@@ -1,14 +1,18 @@
+
+
+{% load static %}
+
 <!DOCTYPE html>
 <html class="light" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trip Countdown with Sidebar</title>
+  <title>My Trips - RideRadar</title>
 
   <!-- External Stylesheets -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
   <!-- Tailwind Configuration -->
   <script id="tailwind-config">
@@ -17,19 +21,17 @@
       theme: {
         extend: {
           colors: {
-            "primary": "#2b8cee",
+            "primary": "#2b8dee",
             "background-light": "#f6f7f8",
-            "background-dark": "#0f172a",
-            "sidebar-light": "#ffffff",
-            "sidebar-dark": "#1e293b"
+            "background-dark": "#101922",
           },
           fontFamily: {
             "display": ["Plus Jakarta Sans", "sans-serif"]
           },
           borderRadius: {
-            "DEFAULT": "0.75rem",
-            "lg": "1.5rem",
-            "xl": "2.5rem",
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
             "full": "9999px"
           },
         },
@@ -39,159 +41,265 @@
 
   <!-- Global Styles -->
   <style type="text/tailwindcss">
-    @layer base {
-      body {
-        @apply font-display antialiased;
-      }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    .circular-progress {
-      background: radial-gradient(closest-side, white 82%, transparent 83% 100%),
-                  conic-gradient(#2b8cee 75%, #e7edf3 0);
+    .sidebar-item-active {
+      @apply bg-primary/10 text-primary;
     }
 
-    .dark .circular-progress {
-      background: radial-gradient(closest-side, #0f172a 82%, transparent 83% 100%),
-                  conic-gradient(#2b8cee 75%, #1e293b 0);
+    .donut-chart {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(#2b8dee var(--percentage), #e2e8f0 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(43, 141, 238, 0.2);
+    }
+
+    .donut-chart::after {
+      content: '';
+      position: absolute;
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: inherit;
+      filter: invert(1);
+    }
+
+    .dark .donut-chart::after {
+      background: #101922;
+    }
+
+    .donut-center {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
   </style>
 
   <style>
     body {
-      min-height: max(884px, 100dvh);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    main {
+      width: 100%;
+      margin-left: 96px;
+      margin-top: 64px;
+      height: calc(100vh - 64px);
     }
   </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
-  <!-- Main Container -->
-  <div class="flex h-screen w-full max-w-[430px] mx-auto shadow-2xl bg-white dark:bg-background-dark overflow-hidden">
-    <!-- Sidebar Navigation -->
-    <aside class="w-16 sm:w-20 flex flex-col items-center py-8 border-r border-slate-200 dark:border-slate-800 bg-sidebar-light dark:bg-sidebar-dark z-20">
-      <!-- Logo -->
-      <div class="mb-10 text-primary">
-        <span class="material-symbols-outlined text-3xl font-bold">directions_bus</span>
-      </div>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#0d141b] dark:text-white antialiased overflow-hidden h-screen flex">
+  
+  {% include 'user_sidebar.html' %}
 
-      <!-- Navigation Menu -->
-      <nav class="flex flex-col gap-8 flex-1">
-        <!-- Home Button -->
-        <button class="p-2 rounded-xl text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-          <span class="material-symbols-outlined">home</span>
-        </button>
+  <!-- Main Content Area -->
+  <main class="flex-1 relative flex flex-col items-center justify-start overflow-y-auto ml-24 mt-16 w-full pb-32">
 
-        <!-- Tickets Button (Active) -->
-        <button class="p-2 rounded-xl bg-primary/10 text-primary">
-          <span class="material-symbols-outlined fill-[1]">confirmation_number</span>
-        </button>
+    <!-- Header -->
+    <div class="w-full max-w-4xl mx-auto px-4 pt-8 pb-4">
+      <h1 class="text-3xl font-bold tracking-tight">My Trips</h1>
+      <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Active trips and booking history</p>
+    </div>
 
-        <!-- Map Button -->
-        <button class="p-2 rounded-xl text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-          <span class="material-symbols-outlined">map</span>
-        </button>
-
-        <!-- Account Button -->
-        <button class="p-2 rounded-xl text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-          <span class="material-symbols-outlined">account_circle</span>
-        </button>
-      </nav>
-
-      <!-- Settings Button -->
-      <button class="mt-auto p-2 rounded-xl text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-        <span class="material-symbols-outlined">settings</span>
-      </button>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-1 flex flex-col h-full overflow-y-auto relative">
-      <!-- Header -->
-      <header class="sticky top-0 z-10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-4 flex items-center">
-        <h1 class="text-xl font-extrabold tracking-tight">My Trip</h1>
-      </header>
-
-      <!-- Content Section -->
-      <div class="px-5 pb-10 flex flex-col gap-6">
-        <!-- Countdown Timer Section -->
-        <section class="flex flex-col items-center pt-4">
-          <div class="circular-progress w-56 h-56 rounded-full flex items-center justify-center shadow-lg shadow-primary/10 border-4 border-white dark:border-slate-900">
-            <div class="flex flex-col items-center">
-              <span class="text-6xl font-black text-slate-900 dark:text-white leading-none">4</span>
-              <span class="text-[10px] font-bold opacity-50 uppercase tracking-[0.2em] mt-1">mins away</span>
+    <!-- Active Trips Section -->
+    <div class="w-full max-w-4xl mx-auto px-4 mb-8">
+      <h2 class="text-sm font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-4">Active Trips</h2>
+      
+      <!-- Active Trip Card -->
+      <div class="bg-white dark:bg-background-dark rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden mb-4">
+        <div class="p-6">
+          <!-- Header with Status Badge -->
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <h3 class="text-lg font-bold mb-1">Route 45 - Kahawa West</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400">Vehicle KDB 883Z</p>
             </div>
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs font-bold rounded-full">
+              <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+              In Progress
+            </span>
           </div>
-        </section>
 
-        <!-- Trip Info -->
-        <div class="text-center">
-          <h2 class="text-xl font-bold">Arriving Soon</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Route 24 • KCB 442X</p>
-        </div>
-
-        <!-- Distance Progress Section -->
-        <section class="w-full">
-          <div class="bg-slate-50 dark:bg-slate-900/60 rounded-2xl p-4 border border-slate-100 dark:border-slate-800">
-            <div class="flex justify-between items-end mb-3">
-              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Distance</span>
-              <span class="text-lg font-bold">800m</span>
-            </div>
-            <div class="relative h-2.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
-              <div class="absolute h-full rounded-full bg-primary" style="width: 75%;"></div>
-            </div>
-            <div class="flex justify-between mt-2">
-              <span class="text-[10px] font-bold text-slate-400 uppercase">Ngong Rd</span>
-              <span class="text-[10px] font-bold text-primary uppercase">Current Stop</span>
-            </div>
-          </div>
-        </section>
-
-        <!-- Smart Alert Toggle Section -->
-        <section>
-          <div class="flex items-center justify-between p-4 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
-            <div class="flex flex-col">
-              <span class="text-sm font-bold">Smart Alert</span>
-              <span class="text-[12px] text-slate-500">Notify me at 2 mins</span>
-            </div>
-            <label class="relative inline-flex items-center cursor-pointer">
-              <input checked="" class="sr-only peer" type="checkbox"/>
-              <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-            </label>
-          </div>
-        </section>
-
-        <!-- Suggest Next Option Button -->
-        <section>
-          <button class="w-full py-4 px-4 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-3">
-            <span class="material-symbols-outlined text-xl">schedule</span>
-            Suggest next best option
-          </button>
-        </section>
-
-        <!-- Live Tracking Map Section -->
-        <section class="mt-2">
-          <div class="relative h-36 w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-inner">
-            <!-- Map Background Image -->
-            <img alt="Tracking map" class="w-full h-full object-cover opacity-40 dark:opacity-20 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6VeCOiWVjzrrecMYMCb8A8JHd5fTQVRlB5k5K_Wuw0vHwmvsw36PSdyojee5yrHRKr4SIvYBNa2Rz9rgNIFIyJ6lRtkrcE7h9IKFQHZjy2P9STZuVBBym3a-Oeqlkbycza_uvRcVb4a_HbRE-smWdXyVRRT4ki0PnVc0zfekFBUrfxT0CQpvCW9bb5DgLEoMhrQdIjn9Vx9uNiQyhhkZY9zITx2qN7V7t_ghttJFJ-ps-eaZ80h7WNhh10a0sYyxufkduXAm14q4"/>
-
-            <!-- Bus Marker -->
-            <div class="absolute inset-0 flex items-center justify-center">
-              <div class="relative">
-                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white shadow-xl z-10 relative border-2 border-white dark:border-slate-900">
-                  <span class="material-symbols-outlined text-xl">directions_bus</span>
-                </div>
-                <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-slate-900 animate-pulse"></div>
+          <!-- Donut Chart Section -->
+          <div class="flex flex-col sm:flex-row items-center justify-between mb-6 gap-6">
+            <!-- Donut Chart -->
+            <div class="flex flex-col items-center" style="margin: 20px;">
+              <svg class="w-32 h-32" viewBox="0 0 120 120" >
+                <!-- Background Circle -->
+                <circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="12" class="text-slate-200 dark:text-slate-700" opacity="0.3"/>
+                <!-- Progress Circle (15 out of 20 mins = 75%) -->
+                <circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="12" class="text-primary" stroke-dasharray="264 352" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+              </svg>
+              <div class="absolute flex flex-col items-center mt-1" style="padding-top: 30px;">
+                <span class="text-2xl font-bold">5</span>
+                <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold">mins</span>
               </div>
             </div>
 
-            <!-- Live Tracking Label -->
-            <div class="absolute bottom-3 left-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
-              <p class="text-[9px] font-black tracking-widest text-primary">LIVE TRACKING</p>
+            <!-- Trip Details Grid -->
+            <div class="flex-1 grid grid-cols-2 gap-4">
+              <!-- Current Stop -->
+              <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/50">
+                <p class="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold mb-2">Current Stop</p>
+                <p class="font-bold text-sm">Prestige Plaza</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">500m away</p>
+              </div>
+
+              <!-- Occupancy -->
+              <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/50">
+                <p class="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold mb-2">Occupancy</p>
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-amber-500">group</span>
+                  <p class="font-bold text-sm">Full</p>
+                </div>
+              </div>
+
+              <!-- Fare -->
+              <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/50">
+                <p class="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold mb-2">Fare</p>
+                <p class="font-bold text-primary text-sm">60 KES</p>
+              </div>
+
+              <!-- Payment Status -->
+              <div class="bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/50">
+                <p class="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold mb-2">Payment</p>
+                <p class="font-bold text-emerald-600 dark:text-emerald-400 text-sm">Paid</p>
+              </div>
             </div>
           </div>
-        </section>
-      </div>
 
-      <!-- Bottom Spacer -->
-      <div class="h-8 shrink-0"></div>
-    </main>
-  </div>
+          <!-- Action Buttons -->
+          <div class="flex gap-3">
+            <a href="/user/live-tracking" class="flex-1 bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined">location_on</span>
+              Live Tracking
+            </a>
+            <button class="flex-1 border border-red-200 dark:border-red-900/40 hover:bg-red-50 dark:hover:bg-red-900/20 text-red-700 dark:text-red-400 font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined">cancel</span>
+              Cancel Trip
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trip History Section -->
+    <div class="w-full max-w-4xl mx-auto px-4 mb-8">
+      <h2 class="text-sm font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-4">Recent Trips</h2>
+      
+      <!-- Trip History Items -->
+      <div class="space-y-3">
+        <!-- Completed Trip 1 -->
+        <div class="bg-white dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 p-4 hover:shadow-md transition-shadow">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400">check_circle</span>
+                <h4 class="font-bold text-sm">Route 46 - CBD → Westlands</h4>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">Vehicle KCA 123X • 24 Jan 2026, 5:45 PM</p>
+              <div class="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-300">
+                <span>⏱ 42 mins</span>
+                <span>•</span>
+                <span>🚐 26 seats</span>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-bold text-sm">50 KES</p>
+              <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Completed</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Completed Trip 2 -->
+        <div class="bg-white dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 p-4 hover:shadow-md transition-shadow">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400">check_circle</span>
+                <h4 class="font-bold text-sm">Route 5 - Karen → CBD</h4>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">Vehicle KCC 789Z • 23 Jan 2026, 4:20 PM</p>
+              <div class="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-300">
+                <span>⏱ 55 mins</span>
+                <span>•</span>
+                <span>🚐 26 seats</span>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-bold text-sm">100 KES</p>
+              <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Completed</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Completed Trip 3 -->
+        <div class="bg-white dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 p-4 hover:shadow-md transition-shadow">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400">check_circle</span>
+                <h4 class="font-bold text-sm">Route 23 - Upper Hill → CBD</h4>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">Vehicle KCB 445Y • 22 Jan 2026, 8:10 AM</p>
+              <div class="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-300">
+                <span>⏱ 35 mins</span>
+                <span>•</span>
+                <span>🚐 26 seats</span>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-bold text-sm">40 KES</p>
+              <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Completed</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cancelled Trip -->
+        <div class="bg-white dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 p-4 hover:shadow-md transition-shadow opacity-75">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="material-symbols-outlined text-slate-400">cancel</span>
+                <h4 class="font-bold text-sm text-slate-600 dark:text-slate-400">Route 12 - Nairobi West → CBD</h4>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">Vehicle KCD 567M • 21 Jan 2026, 6:30 PM</p>
+              <div class="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-300">
+                <span>🚫 Cancelled by user</span>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-bold text-sm text-slate-500">-- KES</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Refunded</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View All History Button -->
+    <div class="w-full max-w-4xl mx-auto px-4 pb-8">
+      <button class="w-full py-3 px-4 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined">history</span>
+        View Full History
+      </button>
+    </div>
+
+  </main>
+
+  <!-- User Sidebar -->
+  {% include 'user_sidebar.html' %}
+
 </body>
 </html>
