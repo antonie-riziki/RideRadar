@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 sys.path.insert(1, '/')
 
 from send_sms import chunk_message
-from ai_response import nutrients_metrics_func, crop_recommendations_func, future_forecast_func, market_projection_func
+from ai_response import traffic_alerts
 from payment import initiate_payment
 
 
@@ -34,9 +34,6 @@ def ussd():
         response += "7. Help & Customer Support\n"
 
 
-    
-
-
 
     # ----------------------------- #
     # SECTION 1: Find Matatu #
@@ -50,146 +47,101 @@ def ussd():
         response += "4. Nearest Available Matatu\n"
 
     elif text == "1*1":
-        response = f"END Wait for Mpesa STK Push {initiate_payment(phone_number)}"
+        response = "CON Search Matatu by Route \n"
+        response += "Enter Route Number: \n"
+
+        # response = f"END Wait for Mpesa STK Push {initiate_payment(phone_number)}"
 
     elif text == "1*2":
-        response = "CON My Dashboard \n"
-        response += "1. Realtime Nutrient Metrics \n"
-        response += "2. Recommendations \n"
-        response += "3. Future Forecast \n"
-        response += "4. Market Projection \n"
-
-    elif text == "1*2*1":
-        response = f"END You will recieve a message shortly {chunk_message(phone_number, nutrients_metrics_func())}"
-
-    elif text == "1*2*2":
-        response = f"END You will recieve a message shortly {chunk_message(phone_number, crop_recommendations_func())}"
-
-
-    elif text == "1*2*3":
-        response = f"END You will recieve a message shortly {chunk_message(phone_number, future_forecast_func())}"
-
-
-    elif text == "1*2*4":
-        response = f"END You will recieve a message shortly {chunk_message(phone_number, market_projection_func())}"
+        response = "CON Search Matatu by Destination \n"
+        response += "Enter Destination: e.g Town, Rongai, Thika\n"
 
 
     elif text == "1*3":
-        response = "CON Report Faulty \n"
-        response += "Call Customer Care \n"
-        response += "Send Kit Serial Number \n"
+        response = "CON Search Matatu by Sacco \n"
+        response += "Enter Sacco Name: e.g Stagecoach, Easy Coach\n"
 
     
 
 
 
     # ----------------------------- #
-    # SECTION 2: Loan Services      #
+    # SECTION 2: Routes and Traffic      #
     # ----------------------------- #
 
     elif text == "2":
-        response = "CON Loan Services \n"
-        response += "1. Apply for a Loan\n"  
-        response += "2. Check Loan Eligibility\n"  
-        response += "3. Loan Balance & Repayment\n"  
-        response += "4. Farm Input Loans\n"  
-        response += "5. Produce / Harvest Loans\n"  
-        response += "6. Insurance & Risk Cover\n"  
-        response += "7. Farmer Profile & Credit Score\n"  
-        response += "8. Contact / Support\n" 
+        response = "CON Routes and Traffic \n"
+        response += "1. Heavy Traffic\n"  
+        response += "2. Smoooth Routes\n"  
+        response += "3. Road Accidents\n"  
+        response += "4. Suggested Routes\n" 
+        response += "5. Road Closures\n" 
 
-    elif text == "2*1":
-        response = "CON Loan Application \n"
-        response += "1. Instant Cash Loan\n"  
-        response += "2. Farm Input Loan (Seeds, Fertilizer, Pesticides)\n"  
-        response += "3. Equipment Loan (Tractor, Irrigation Kit, etc.)\n"  
-        response += "4. Group/Cooperative Loan \n" 
-        response += "5. Back \n" 
-
-
-    elif text == "2*2":
-        response = "CON Check Loan Eligibility \n"
-        response += "1. Check Eligibility Status \n"  
-        response += "2. View Credit Score \n"  
-        response += "3. Update Farm Information \n"  
-        response += "4. View Loan Limit \n"  
-        response += "5. Back \n" 
-
-    elif text == "2*3":
-        response = "CON Loan Balance \n"
-        response += "1. View Outstanding Balance \n"  
-        response += "2. Make a Repayment (via Mobile Money) \n"  
-        response += "3. View Repayment History \n"  
-        response += "4. Request Statement (SMS) \n"  
-        response += "5. Back \n"
-
-    elif text == "2*4":
-        response = "CON Farm Inpu Loans\n"
-        response += "1. Request Seeds Loan \n"  
-        response += "2. Request Fertilizer Loan \n"  
-        response += "3. Request Pesticides Loan \n"  
-        response += "4. Check Input Loan Status \n"  
-        response += "5. Back \n"  
-
-
-    elif text == "2*5":
-        response = "CON Produce / Harvest Loans \n"
-        response += "1. Request Advance on Expected Harvest \n"  
-        response += "2. Link to Buyer/Market \n"  
-        response += "3. Track Produce Delivery \n"  
-        response += "4. Repay After Sale \n"  
-        response += "5. Back \n"  
-
-
-    elif text == "2*6":
-        response = "CON Insurance & Risk Cover \n"
-        response += "1. Enroll in Crop Insurance \n"  
-        response += "2. Enroll in Livestock Insurance \n"  
-        response += "3. Check Insurance Status \n"  
-        response += "4. File a Claim \n"  
-        response += "5. Back \n"  
-
-
-    elif text == "2*7":
-        response = "CON Credit Score \n"
-        response += "1. Update Farm Details (Size, Type, Crop) \n"  
-        response += "2. View My Credit Score \n"  
-        response += "3. Link to Cooperative \n"  
-        response += "4. Add Next of Kin \n"  
-        response += "5. Back \n"  
-
-
-    elif text == "2*8":
-        response = "CON Get Help\n"
-        response += "1. Talk to a Loan Officer \n"  
-        response += "2. FAQs \n"  
-        response += "3. Report a Problem \n"  
-        response += "4. Back \n"  
 
 
             
     # ----------------------------- #
-    # SECTION 3: Report Fraud     #
+    # SECTION 3: Nearby Stages    #
     # ----------------------------- #
 
     elif text == "3":
-        response = "CON File a Claim\n"
-        response += "1. Talk to Customer Care"
-
-
-
-
-
-
+        response = "CON Nearby Stages\n"
+        response += "1. Nearest Stage\n"
+        response += "2. Search Stage: \n"
+        response += "3. Stages on my Route\n"
+    
+    
+    
     # ----------------------------- #
-    # SECTION 4: About the Company    #
+    # SECTION 4: My Favourites   #
     # ----------------------------- #
 
     elif text == "4":
-        response = "END File a Claim \n"
-        
+        response = "CON My Favourites\n"
+        response += "1. Saved Route\n"
+        response += "2. Saved Stages\n"
+        response += "3. Preffered Sacco\n"
+        response += "4. Clear Favourites\n"
 
 
+
+    # ----------------------------- #
+    # SECTION 5: Fare Estimates  #
+    # ----------------------------- #
+
+    elif text == "5":
+        response = "CON Fare Estimates\n"
+        response += "1. By Route\n"
+        response += "2. By Stages\n"
+        response += "3. Peak vs off-peak\n"
+
+
+    # ----------------------------- #
+    # SECTION 6: News & Alerts #
+    # ----------------------------- #
+
+    elif text == "6":
+        response = "CON News & Alerts\n"
+        response += "1. Traffic Updates & Alerts\n"
+        response += "2. Matatu Disruption\n"
+        response += "3. Road Closures\n"
+        response += "4. Govt Notices\n"
+        response += "5. Enable Alerts\n"
+
+
+
+
+    # ----------------------------- #
+    # SECTION 7: Help & Support  #
+    # ----------------------------- #
+
+    elif text == "7":
+        response = "CON Help & Support\n"
+        response += "1. How Ride Radar works\n"
+        response += "2. Contact Support\n"
+        response += "3. FAQ\n"
+        response += "4. Language (en/sw)\n"
+        response += "5. Terms & Privacy\n"
 
 
 
