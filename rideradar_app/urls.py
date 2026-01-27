@@ -11,6 +11,7 @@ urlpatterns = [
     path('fleet-admin/fleet-tracking/', views.admin_fleet_tracking, name='admin_fleet_tracking'),
     path('fleet-admin/smart-recommendations/', views.admin_smart_recommendations, name='admin_smart_recommendations'),
     path('/send-welcome-message', views.send_welcome_message_view, name='send_welcome_message'),
+    path('/send-login-message', views.send_login_message_view, name='send_login_message'),
     path('user/dashboard/', views.user_dashboard, name='user_dashboard'),
     # path('user/profile/', views.user_profile, name='user_profile'),
     # path('user/logout/', views.user_logout, name='user_logout'),

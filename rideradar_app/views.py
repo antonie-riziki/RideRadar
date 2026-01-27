@@ -286,6 +286,27 @@ def welcome_message(full_name, phone_number):
 
 
 
+
+def login_message(phone_number):
+
+    recipients = [f"+254{str(phone_number)}"]
+
+    # Set your message
+    message = f"Welcome back to Ride Radar. Access real-time routes, vehicles & ETAs instantly. Safe travels!"
+
+    # Set your shortCode or senderId
+    sender = 20880
+ 
+    try:
+        response = sms.send(message, recipients, sender)
+
+        print(response)
+
+    except Exception as e:
+        print(f'Houston, we have a problem: {e}')
+
+
+
 """
  
 Core system view
@@ -381,6 +402,20 @@ def send_welcome_message_view(request):
 
 
         return JsonResponse({'status': 'Welcome message sent', 'phone': phone})
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+
+@csrf_exempt
+def send_login_message_view(request):
+    if request.method == 'POST':
+        phone = request.POST.get('login-phone-number')
+        password = request.POST.get('login-password')
+        
+        login_message(phone)
+
+        return JsonResponse({'status': 'Login message sent', 'phone': phone})
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
 

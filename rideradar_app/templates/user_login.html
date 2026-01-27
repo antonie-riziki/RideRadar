@@ -47,33 +47,14 @@
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
 
-    /* Custom styling for radio inputs in segmented buttons */
-    .segmented-radio:checked + span {
-      background-color: white;
-      color: #0d1b12;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    /* Form visibility toggle */
     .form-section {
       display: none;
-      animation: fadeIn 0.3s ease-in;
     }
 
     .form-section.active {
       display: block;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
   </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark min-h-screen transition-colors duration-300">
@@ -116,7 +97,7 @@
     </div>
 
     <!-- LOGIN FORM SECTION -->
-    <form method="POST" action="{% url 'user_dashboard' %}">
+    <form method="POST" class="form-section" action="{% url 'user_dashboard' %}" id="login-form">
       {% csrf_token %}
 
       <!-- Headline -->
@@ -132,7 +113,7 @@
             <div class="flex items-center pl-5 pr-2 border-r border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02]">
               <span class="text-sm font-bold text-background-dark dark:text-white">+254</span>
             </div>
-            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-4 text-base font-medium" placeholder="7XX XXX XXX" type="tel" id="phone-number" name="phone-number"/>
+            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-4 text-base font-medium" placeholder="7XX XXX XXX" type="tel" id="login-phone-number" name="login-phone-number" />
             <div class="text-primary flex items-center justify-center pr-5">
               <span class="material-symbols-outlined">call</span>
             </div>
@@ -201,7 +182,7 @@
     </form>
 
     <!-- REGISTRATION FORM SECTION -->
-    <form method="POST" action="{% url 'user_dashboard' %}">
+    <form method="POST" class="form-section" action="{% url 'user_dashboard' %}" id="signup-form">
       {% csrf_token %}
 
       <!-- Headline -->
@@ -332,7 +313,7 @@
   </div>
 
 
-{% if messages %}
+<!-- {% if messages %}
   <div class="fixed top-4 right-4 space-y-2 z-50">
     {% for message in messages %}
       <div class="px-4 py-3 rounded-xl shadow-lg
@@ -343,36 +324,50 @@
       </div>
     {% endfor %}
   </div>
-{% endif %}
+{% endif %} -->
 
 
   <!-- JavaScript for Form Toggle & Password Visibility -->
   <script>
-    // Handle form switching based on segmented toggle
-    document.querySelectorAll('.auth-toggle').forEach(toggle => {
-      toggle.addEventListener('change', (e) => {
-        const authMode = e.target.value;
-        
-        // Hide all forms
-        document.querySelectorAll('.form-section').forEach(form => {
-          form.classList.remove('active');
-        });
-        
-        // Show selected form
-        if (authMode === 'login') {
-          document.getElementById('login-form').classList.add('active');
-        } else if (authMode === 'signup') {
-          document.getElementById('signup-form').classList.add('active');
-        }
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const authRadios = document.querySelectorAll('.auth-toggle');
+
+    function updateAuthView(mode) {
+      // Hard reset
+      loginForm.classList.remove('active');
+      signupForm.classList.remove('active');
+
+      if (mode === 'login') {
+        loginForm.classList.add('active');
+      }
+
+      if (mode === 'signup') {
+        signupForm.classList.add('active');
+      }
+    }
+
+    // Listen for radio changes
+    authRadios.forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        updateAuthView(e.target.value);
       });
     });
 
-    // Toggle password visibility
+    // 🔥 IMPORTANT: set initial view on page load
+    const checkedRadio = document.querySelector('.auth-toggle:checked');
+    if (checkedRadio) {
+      updateAuthView(checkedRadio.value);
+    }
+
+    // Password toggle (unchanged)
     function togglePasswordVisibility(fieldId) {
       const field = document.getElementById(fieldId);
-      const isPassword = field.type === 'password';
-      field.type = isPassword ? 'text' : 'password';
+      field.type = field.type === 'password' ? 'text' : 'password';
     }
   </script>
+
+
+
 </body>
 </html>
