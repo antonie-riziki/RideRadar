@@ -349,122 +349,122 @@ def chatbot_response(request):
 
 # ===== AUTHENTICATION VIEWS =====
 
-def user_login_register(request):
-    """
-    Combined login and registration view.
-    Handles both login and signup forms.
-    """
-    if request.method == 'POST':
-        # Determine which form was submitted
-        if 'login-submit' in request.POST:
-            # Handle login
-            phone = request.POST.get('login-phone', '').strip()
-            password = request.POST.get('login-password', '').strip()
+# def user_login_register(request):
+#     """
+#     Combined login and registration view.
+#     Handles both login and signup forms.
+#     """
+#     if request.method == 'POST':
+#         # Determine which form was submitted
+#         if 'login-submit' in request.POST:
+#             # Handle login
+#             phone = request.POST.get('login-phone', '').strip()
+#             password = request.POST.get('login-password', '').strip()
             
-            # Format phone number
-            if phone and not phone.startswith('+254'):
-                phone = '+254' + phone.lstrip('0')
+#             # Format phone number
+#             if phone and not phone.startswith('+254'):
+#                 phone = '+254' + phone.lstrip('0')
             
-            # Try to find user by phone
-            try:
-                profile = UserProfile.objects.get(phone=phone)
-                user = authenticate(request, username=profile.user.username, password=password)
+#             # Try to find user by phone
+#             try:
+#                 profile = UserProfile.objects.get(phone=phone)
+#                 user = authenticate(request, username=profile.user.username, password=password)
                 
-                if user is not None:
-                    login(request, user)
-                    messages.success(request, f"Welcome back, {user.get_full_name() or user.username}!")
-                    return redirect('user_dashboard')
-                else:
-                    messages.error(request, "Invalid phone number or password.")
-            except UserProfile.DoesNotExist:
-                messages.error(request, "Phone number not found. Please register first.")
+#                 if user is not None:
+#                     login(request, user)
+#                     messages.success(request, f"Welcome back, {user.get_full_name() or user.username}!")
+#                     return redirect('user_dashboard')
+#                 else:
+#                     messages.error(request, "Invalid phone number or password.")
+#             except UserProfile.DoesNotExist:
+#                 messages.error(request, "Phone number not found. Please register first.")
         
-        elif 'signup-submit' in request.POST:
-            # Handle registration
-            form = UserRegistrationForm(request.POST)
-            if form.is_valid():
-                user = form.save()
-                login(request, user)
-                messages.success(request, "Account created successfully! Welcome to RideRadar.")
-                return redirect('user_dashboard')
-            else:
-                for field, errors in form.errors.items():
-                    for error in errors:
-                        messages.error(request, f"{field}: {error}")
+#         elif 'signup-submit' in request.POST:
+#             # Handle registration
+#             form = UserRegistrationForm(request.POST)
+#             if form.is_valid():
+#                 user = form.save()
+#                 login(request, user)
+#                 messages.success(request, "Account created successfully! Welcome to RideRadar.")
+#                 return redirect('user_dashboard')
+#             else:
+#                 for field, errors in form.errors.items():
+#                     for error in errors:
+#                         messages.error(request, f"{field}: {error}")
     
-    # GET request - show login/register form
-    login_form = UserLoginForm()
-    signup_form = UserRegistrationForm()
+#     # GET request - show login/register form
+#     login_form = UserLoginForm()
+#     signup_form = UserRegistrationForm()
     
-    context = {
-        'login_form': login_form,
-        'signup_form': signup_form,
-    }
-    return render(request, 'user_login.html', context)
+#     context = {
+#         'login_form': login_form,
+#         'signup_form': signup_form,
+#     }
+#     return render(request, 'user_login.html', context)
 
 
-@login_required(login_url='user_login_register')
-def user_dashboard(request):
-    """User dashboard showing profile and recent activity"""
-    try:
-        profile = UserProfile.objects.get(user=request.user)
-    except UserProfile.DoesNotExist:
-        profile = UserProfile.objects.create(user=request.user)
+# @login_required(login_url='user_login_register')
+# def user_dashboard(request):
+#     """User dashboard showing profile and recent activity"""
+#     try:
+#         profile = UserProfile.objects.get(user=request.user)
+#     except UserProfile.DoesNotExist:
+#         profile = UserProfile.objects.create(user=request.user)
     
-    # Get recent trips and tickets
-    recent_trips = Trip.objects.filter(user=request.user).order_by('-start_time')[:5]
-    active_tickets = Ticket.objects.filter(user=request.user, status='active').order_by('-created_at')
+#     # Get recent trips and tickets
+#     recent_trips = Trip.objects.filter(user=request.user).order_by('-start_time')[:5]
+#     active_tickets = Ticket.objects.filter(user=request.user, status='active').order_by('-created_at')
     
-    context = {
-        'profile': profile,
-        'recent_trips': recent_trips,
-        'active_tickets': active_tickets,
-    }
-    return render(request, 'user_dashboard.html', context)
+#     context = {
+#         'profile': profile,
+#         'recent_trips': recent_trips,
+#         'active_tickets': active_tickets,
+#     }
+#     return render(request, 'user_dashboard.html', context)
 
 
-def user_register(request):
-    """Standalone registration page"""
-    if request.method == 'POST':
-        form = UserRegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, "Account created successfully!")
-            return redirect('user_dashboard')
-    else:
-        form = UserRegistrationForm()
+# def user_register(request):
+#     """Standalone registration page"""
+#     if request.method == 'POST':
+#         form = UserRegistrationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             messages.success(request, "Account created successfully!")
+#             return redirect('user_dashboard')
+#     else:
+#         form = UserRegistrationForm()
     
-    context = {'form': form}
-    return render(request, 'user_register.html', context)
+#     context = {'form': form}
+#     return render(request, 'user_register.html', context)
 
 
-@login_required(login_url='user_login_register')
-def user_profile(request):
-    """User profile edit page"""
-    profile = UserProfile.objects.get_or_create(user=request.user)[0]
+# @login_required(login_url='user_login_register')
+# def user_profile(request):
+#     """User profile edit page"""
+#     profile = UserProfile.objects.get_or_create(user=request.user)[0]
     
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=profile)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Profile updated successfully!")
-            return redirect('user_profile')
-    else:
-        form = UserProfileForm(instance=profile)
+#     if request.method == 'POST':
+#         form = UserProfileForm(request.POST, instance=profile)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, "Profile updated successfully!")
+#             return redirect('user_profile')
+#     else:
+#         form = UserProfileForm(instance=profile)
     
-    context = {
-        'form': form,
-        'profile': profile,
-    }
-    return render(request, 'user_profile.html', context)
+#     context = {
+#         'form': form,
+#         'profile': profile,
+#     }
+#     return render(request, 'user_profile.html', context)
 
 
-@login_required(login_url='user_login_register')
-def user_logout(request):
-    """Logout user"""
-    logout(request)
-    messages.success(request, "Logged out successfully!")
-    return redirect('user_login_register')
+# @login_required(login_url='user_login_register')
+# def user_logout(request):
+#     """Logout user"""
+#     logout(request)
+#     messages.success(request, "Logged out successfully!")
+#     return redirect('user_login_register')
 
 
