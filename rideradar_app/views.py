@@ -212,22 +212,6 @@ Let me know where you're headed and I'll guide you step by step 🚐🗺️
 
 
 
-load_dotenv()
-
-sys.path.insert(1, './rideradar_app')
-
-# Initialize Gemini Client
-client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
-
-# Initialize Africa's Talking
-africastalking.initialize(
-    username="EMID",
-    api_key=os.getenv("AT_API_KEY")
-)
-
-
-
-
 
 
 def get_gemini_response(prompt):
