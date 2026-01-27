@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_protect
 from google import genai
 from google.genai import types
 from dotenv import load_dotenv
@@ -14,6 +15,29 @@ import json
 import africastalking
 from .forms import UserRegistrationForm, UserLoginForm, UserProfileForm
 from .models import UserProfile, Ticket, Trip
+
+
+
+
+load_dotenv()
+
+sys.path.insert(1, './rideradar_app')
+
+# Initialize Gemini Client
+client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+
+# Initialize Africa's Talking
+africastalking.initialize(
+    username="EMID",
+    api_key=os.getenv("AT_API_KEY")
+)
+
+
+# Instance method services from Africa's Talking
+sms = africastalking.SMS
+airtime = africastalking.Airtime
+voice = africastalking.Voice
+
 
 
 # System instruction for Gemini AI Assistant
@@ -233,22 +257,39 @@ def get_gemini_response(prompt):
 
 
 
-def get_gemini_response(prompt):
-    """Generate AI response using Gemini model with transport intelligence instructions."""
-    response = client.models.generate_content(
-        model='gemini-2.0-flash',
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            system_instruction=GEMINI_SYSTEM_INSTRUCTION,
-            max_output_tokens=1000,
-            top_k=2,
-            top_p=0.5,
-            temperature=0.9,
-            seed=42,
-        ),
-    )
 
-    return response.text
+
+
+
+
+"""
+
+Africas Talking sms module
+"""
+def welcome_message(full_name, phone_number):
+
+    recipients = [f"+254{str(phone_number)}"]
+
+    # Set your message
+    message = f"{full_name}, welcome to Ride Radar. Access real-time routes, vehicles & ETAs instantly. Safe travels!"
+
+    # Set your shortCode or senderId
+    sender = 20880
+ 
+    try:
+        response = sms.send(message, recipients, sender)
+
+        print(response)
+
+    except Exception as e:
+        print(f'Houston, we have a problem: {e}')
+
+
+
+"""
+ 
+Core system view
+"""   
 
 def home(request):
     return render(request, 'index.html')
@@ -310,6 +351,38 @@ def user_tickets(request):
 
 def user_ride_history(request):
     return render(request, 'user_trips.html')
+
+
+
+
+"""
+
+Login and Registration Functionality 
+"""
+@csrf_exempt
+def send_welcome_message_view(request):
+    if request.method == 'POST':
+        phone = request.POST.get('phone-number')
+        user_name = request.POST.get('full-name')
+        # last_name = request.POST.get('lastName')
+        email = request.POST.get('user-email')
+        password = request.POST.get('signup-password')
+        confirm_password = request.POST.get('signup-confirm-password')
+        
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match")
+            return redirect('user_login')
+
+        else:
+
+            welcome_message(user_name, phone)
+
+        messages.success(request, f"Welcome {user_name}! Your account was created.")
+
+
+        return JsonResponse({'status': 'Welcome message sent', 'phone': phone})
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
 

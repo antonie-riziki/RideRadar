@@ -116,7 +116,8 @@
     </div>
 
     <!-- LOGIN FORM SECTION -->
-    <div class="form-section active" id="login-form">
+    <form method="POST" action="{% url 'user_dashboard' %}">
+      {% csrf_token %}
 
       <!-- Headline -->
       <h2 class="text-background-dark dark:text-white tracking-tight text-[24px] font-bold leading-tight px-6 pt-4 pb-2" style="text-align: center;">Welcome Back</h2>
@@ -131,7 +132,7 @@
             <div class="flex items-center pl-5 pr-2 border-r border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02]">
               <span class="text-sm font-bold text-background-dark dark:text-white">+254</span>
             </div>
-            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-4 text-base font-medium" placeholder="7XX XXX XXX" type="tel" />
+            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-4 text-base font-medium" placeholder="7XX XXX XXX" type="tel" id="phone-number" name="phone-number"/>
             <div class="text-primary flex items-center justify-center pr-5">
               <span class="material-symbols-outlined">call</span>
             </div>
@@ -142,7 +143,7 @@
         <div class="flex flex-col">
           <p class="text-background-dark dark:text-white/70 text-sm font-semibold leading-normal pb-2 px-2">Password</p>
           <div class="flex w-full items-stretch rounded-full overflow-hidden border border-black/10 dark:border-white/10 bg-white dark:bg-background-dark focus-within:border-primary transition-colors">
-            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-5 text-base font-medium" placeholder="Enter your password" type="password" id="login-password" />
+            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-5 text-base font-medium" placeholder="Enter your password" type="password" id="login-password" name="login-password" />
             <div class="text-primary flex items-center justify-center pr-5 cursor-pointer" onclick="togglePasswordVisibility('login-password')">
               <span class="material-symbols-outlined">visibility</span>
             </div>
@@ -162,7 +163,7 @@
 
       <!-- Action Button -->
       <div class="px-4 py-8">
-        <button class="w-full h-16 bg-primary text-background-dark font-bold text-lg rounded-full shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all">
+        <button type="submit" class="w-full h-16 bg-primary text-background-dark font-bold text-lg rounded-full shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all">
           Login
           <span class="material-symbols-outlined">arrow_forward</span>
         </button>
@@ -197,10 +198,11 @@
 
       </div>
 
-    </div>
+    </form>
 
     <!-- REGISTRATION FORM SECTION -->
-    <div class="form-section" id="signup-form">
+    <form method="POST" action="{% url 'user_dashboard' %}">
+      {% csrf_token %}
 
       <!-- Headline -->
       <h2 class="text-background-dark dark:text-white tracking-tight text-[24px] font-bold leading-tight px-6 pt-4 pb-2" style="text-align: center;">Create Account</h2>
@@ -215,7 +217,7 @@
             <div class="flex items-center pl-5 pr-2 border-r border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02]">
               <span class="text-sm font-bold text-background-dark dark:text-white">+254</span>
             </div>
-            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-4 text-base font-medium" placeholder="7XX XXX XXX" type="tel" />
+            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-4 text-base font-medium" placeholder="7XX XXX XXX" type="tel" id="phone-number" name="phone-number"/>
             <div class="text-primary flex items-center justify-center pr-5">
               <span class="material-symbols-outlined">call</span>
             </div>
@@ -226,7 +228,7 @@
         <div class="flex flex-col">
           <p class="text-background-dark dark:text-white/70 text-sm font-semibold leading-normal pb-2 px-2">Full Name</p>
           <div class="flex w-full items-stretch rounded-full overflow-hidden border border-black/10 dark:border-white/10 bg-white dark:bg-background-dark focus-within:border-primary transition-colors">
-            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-5 text-base font-medium" placeholder="e.g. Juma Bakari" type="text" />
+            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-5 text-base font-medium" placeholder="e.g. Juma Bakari" type="text" id="full-name" name="full-name"/>
             <div class="text-primary flex items-center justify-center pr-5">
               <span class="material-symbols-outlined">person</span>
             </div>
@@ -237,7 +239,7 @@
         <div class="flex flex-col">
           <p class="text-background-dark dark:text-white/70 text-sm font-semibold leading-normal pb-2 px-2">Email</p>
           <div class="flex w-full items-stretch rounded-full overflow-hidden border border-black/10 dark:border-white/10 bg-white dark:bg-background-dark focus-within:border-primary transition-colors">
-            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-5 text-base font-medium" placeholder="e.g. jumabakari@example.com" type="email" />
+            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-5 text-base font-medium" placeholder="e.g. jumabakari@example.com" type="email" id="user-email" name="user-email" />
             <div class="text-primary flex items-center justify-center pr-5">
               <span class="material-symbols-outlined">email</span>
             </div>
@@ -248,7 +250,7 @@
         <div class="flex flex-col">
           <p class="text-background-dark dark:text-white/70 text-sm font-semibold leading-normal pb-2 px-2">Preferred Route</p>
           <div class="flex w-full items-stretch rounded-full overflow-hidden border border-black/10 dark:border-white/10 bg-white dark:bg-background-dark focus-within:border-primary transition-colors">
-            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-5 text-base font-medium" placeholder="Search route (e.g. Rongai, Thika Rd)" type="text" />
+            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-5 text-base font-medium" placeholder="Search route (e.g. Rongai, Thika Rd)" type="text" id="route" name="route"/>
             <div class="text-primary flex items-center justify-center pr-5">
               <span class="material-symbols-outlined">near_me</span>
             </div>
@@ -259,8 +261,20 @@
         <div class="flex flex-col">
           <p class="text-background-dark dark:text-white/70 text-sm font-semibold leading-normal pb-2 px-2">Password</p>
           <div class="flex w-full items-stretch rounded-full overflow-hidden border border-black/10 dark:border-white/10 bg-white dark:bg-background-dark focus-within:border-primary transition-colors">
-            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-5 text-base font-medium" placeholder="Create a strong password" type="password" id="signup-password" />
+            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-5 text-base font-medium" placeholder="Create a strong password" type="password" id="signup-password" name="signup-password" />
             <div class="text-primary flex items-center justify-center pr-5 cursor-pointer" onclick="togglePasswordVisibility('signup-password')">
+              <span class="material-symbols-outlined">visibility</span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Confirm Password Input -->
+        <div class="flex flex-col">
+          <p class="text-background-dark dark:text-white/70 text-sm font-semibold leading-normal pb-2 px-2">Confirm Password</p>
+          <div class="flex w-full items-stretch rounded-full overflow-hidden border border-black/10 dark:border-white/10 bg-white dark:bg-background-dark focus-within:border-primary transition-colors">
+            <input class="flex w-full min-w-0 flex-1 bg-transparent text-background-dark dark:text-white focus:outline-0 focus:ring-0 border-none h-14 placeholder:text-background-dark/30 dark:placeholder:text-white/30 px-5 text-base font-medium" placeholder="Confirm your password" type="password" id="signup-confirm-password" name="signup-confirm-password"/>
+            <div class="text-primary flex items-center justify-center pr-5 cursor-pointer" onclick="togglePasswordVisibility('signup-confirm-password')">
               <span class="material-symbols-outlined">visibility</span>
             </div>
           </div>
@@ -270,7 +284,7 @@
 
       <!-- Action Button -->
       <div class="px-4 py-8">
-        <button class="w-full h-16 bg-primary text-background-dark font-bold text-lg rounded-full shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all">
+        <button type="submit" id="registerBtn" class="w-full h-16 bg-primary text-background-dark font-bold text-lg rounded-full shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all">
           Create Account
           <span class="material-symbols-outlined">arrow_forward</span>
         </button>
@@ -305,7 +319,7 @@
 
       </div>
 
-    </div>
+    </form>
 
     <!-- Footer Links -->
     <div class="mt-auto pb-10 px-6 text-center">
@@ -316,6 +330,21 @@
     </div>
 
   </div>
+
+
+{% if messages %}
+  <div class="fixed top-4 right-4 space-y-2 z-50">
+    {% for message in messages %}
+      <div class="px-4 py-3 rounded-xl shadow-lg
+        {% if message.tags == 'error' %}bg-red-500 text-white{% endif %}
+        {% if message.tags == 'success' %}bg-green-500 text-white{% endif %}
+      ">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
 
   <!-- JavaScript for Form Toggle & Password Visibility -->
   <script>
