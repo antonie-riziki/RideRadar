@@ -97,7 +97,7 @@
     </div>
 
     <!-- LOGIN FORM SECTION -->
-    <form method="POST" class="form-section" action="{% url 'user_dashboard' %}" id="login-form">
+    <form method="POST" class="form-section" action="{% url 'send_login_message' %}" id="login-form">
       {% csrf_token %}
 
       <!-- Headline -->
@@ -182,7 +182,7 @@
     </form>
 
     <!-- REGISTRATION FORM SECTION -->
-    <form method="POST" class="form-section" action="{% url 'user_dashboard' %}" id="signup-form">
+    <form method="POST" class="form-section" action="{% url 'send_welcome_message' %}" id="signup-form">
       {% csrf_token %}
 
       <!-- Headline -->

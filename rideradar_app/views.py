@@ -274,7 +274,7 @@ def welcome_message(full_name, phone_number):
     message = f"{full_name}, welcome to Ride Radar. Access real-time routes, vehicles & ETAs instantly. Safe travels!"
 
     # Set your shortCode or senderId
-    sender = 20880
+    sender = "AFTKNG"
  
     try:
         response = sms.send(message, recipients, sender)
@@ -295,7 +295,7 @@ def login_message(phone_number):
     message = f"Welcome back to Ride Radar. Access real-time routes, vehicles & ETAs instantly. Safe travels!"
 
     # Set your shortCode or senderId
-    sender = 20880
+    sender = "AFTKNG"
  
     try:
         response = sms.send(message, recipients, sender)
@@ -398,10 +398,12 @@ def send_welcome_message_view(request):
 
             welcome_message(user_name, phone)
 
-        messages.success(request, f"Welcome {user_name}! Your account was created.")
+            return redirect('user_dashboard')
+
+        # messages.success(request, f"Welcome {user_name}! Your account was created.")
 
 
-        return JsonResponse({'status': 'Welcome message sent', 'phone': phone})
+        # return JsonResponse({'status': 'Welcome message sent', 'phone': phone})
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
@@ -415,7 +417,9 @@ def send_login_message_view(request):
         
         login_message(phone)
 
-        return JsonResponse({'status': 'Login message sent', 'phone': phone})
+        return redirect("user_dashboard")
+
+        # return JsonResponse({'status': 'Login message sent', 'phone': phone})
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
